@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Roteiro Europa · Douglas & Caroline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lisboa-accent:#e8a020; --lisboa-soft:#f5d99a; --lisboa-deep:#2d1a06;
+  --madri-accent:#c0392b;  --madri-soft:#f1a1a1;  --madri-deep:#1a0808;
+  --paris-accent:#4a90d9;  --paris-soft:#a8c8f0;  --paris-deep:#080e20;
+  --bcn-accent:#e8961a;    --bcn-soft:#f0c070;    --bcn-deep:#0e1a06;
+  --r:16px; --rs:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#0a0a0a;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;}
+.shell{width:100%;max-width:430px;min-height:100vh;background:#0a0a0a;position:relative;}
+
+/* ── TOP NAV ── */
+.top-nav{position:sticky;top:0;z-index:100;background:#0a0a0a;padding:16px 16px 0;}
+.trip-hdr{text-align:center;padding:18px 0 10px;}
+.trip-title{font-family:'Playfair Display',serif;font-size:21px;color:#fff;}
+.trip-sub{font-size:11px;color:#555;margin-top:3px;letter-spacing:1.2px;text-transform:uppercase;}
+
+/* city tabs */
+.city-tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:none;}
+.city-tabs::-webkit-scrollbar{display:none;}
+.ctab{flex-shrink:0;padding:7px 15px;border-radius:30px;border:1.5px solid #333;background:transparent;color:#666;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .22s;white-space:nowrap;}
+.ctab.al{border-color:var(--lisboa-accent);background:rgba(232,160,32,.12);color:var(--lisboa-accent);}
+.ctab.am{border-color:var(--madri-accent);background:rgba(192,57,43,.12);color:var(--madri-accent);}
+.ctab.ap{border-color:var(--paris-accent);background:rgba(74,144,217,.12);color:var(--paris-accent);}
+.ctab.ab{border-color:var(--bcn-accent);background:rgba(232,150,26,.12);color:var(--bcn-accent);}
+.ctab.al2{border-color:var(--lisboa-accent);background:rgba(232,160,32,.12);color:var(--lisboa-accent);}
+
+/* MODE tabs (Roteiro / Idiomas) */
+.mode-tabs{display:flex;gap:0;margin:10px 0 0;border-radius:12px;overflow:hidden;border:1px solid #1e1e1e;}
+.mode-tabs-wrap{padding:0 16px 0;}
+.mtab{flex:1;padding:10px 0;text-align:center;font-size:12px;font-weight:500;color:#555;cursor:pointer;background:#0f0f0f;transition:all .2s;border:none;font-family:'DM Sans',sans-serif;}
+.mtab.active-l{background:rgba(232,160,32,.15);color:var(--lisboa-accent);}
+.mtab.active-m{background:rgba(192,57,43,.15);color:var(--madri-accent);}
+.mtab.active-p{background:rgba(74,144,217,.15);color:var(--paris-accent);}
+.mtab.active-b{background:rgba(232,150,26,.15);color:var(--bcn-accent);}
+
+/* city views */
+.cview{display:none;}.cview.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.cview.active{animation:fadeUp .28s ease;}
+.panel{display:none;}.panel.active{display:block;animation:fadeUp .22s ease;}
+
+/* ── HERO ── */
+.hero{margin:14px 16px 18px;border-radius:var(--r);padding:26px 20px 20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;opacity:.07;background-image:radial-gradient(circle at 25% 55%,white 1px,transparent 1px),radial-gradient(circle at 75% 25%,white 1px,transparent 1px);background-size:28px 28px;}
+.hl{background:linear-gradient(135deg,#2d1a06,#4a2e0a);border:1px solid rgba(232,160,32,.3);}
+.hm{background:linear-gradient(135deg,#1a0808,#2d0f0f);border:1px solid rgba(192,57,43,.3);}
+.hp{background:linear-gradient(135deg,#080e20,#0f1a35);border:1px solid rgba(74,144,217,.3);}
+.hb{background:linear-gradient(135deg,#0e1a06,#1a2e0a);border:1px solid rgba(232,150,26,.3);}
+.hero-emoji{font-size:34px;margin-bottom:6px;}
+.hero-city{font-family:'Playfair Display',serif;font-size:27px;color:#fff;font-weight:700;}
+.hero-dates{font-size:12px;color:#bbb;margin-top:3px;}
+.hero-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.htag{font-size:10px;padding:3px 9px;border-radius:18px;font-weight:500;}
+.tl{background:rgba(232,160,32,.18);color:var(--lisboa-soft);}
+.tm{background:rgba(192,57,43,.18);color:var(--madri-soft);}
+.tp{background:rgba(74,144,217,.18);color:var(--paris-soft);}
+.tb{background:rgba(232,150,26,.18);color:var(--bcn-soft);}
+.hero-budget{margin-top:12px;padding:9px 12px;border-radius:var(--rs);background:rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;}
+.hbl{font-size:10px;color:#777;}
+.hbv{font-size:13px;font-weight:600;}
+.vl{color:var(--lisboa-soft);}.vm{color:var(--madri-soft);}.vp{color:var(--paris-soft);}.vb{color:var(--bcn-soft);}
+
+/* ── DAY SELECTOR ── */
+.day-sel{display:flex;gap:7px;overflow-x:auto;padding:14px 16px 14px;scrollbar-width:none;}
+.day-sel::-webkit-scrollbar{display:none;}
+.dbtn{flex-shrink:0;width:50px;height:60px;border-radius:13px;border:1.5px solid #2a2a2a;background:#111;color:#555;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
+.dbtn .dn{font-size:17px;font-weight:600;}.dbtn .dl{font-size:9px;text-transform:uppercase;letter-spacing:.5px;}
+.dbtn.al{border-color:var(--lisboa-accent);background:rgba(232,160,32,.1);color:var(--lisboa-accent);}
+.dbtn.am{border-color:var(--madri-accent);background:rgba(192,57,43,.1);color:var(--madri-accent);}
+.dbtn.ap{border-color:var(--paris-accent);background:rgba(74,144,217,.1);color:var(--paris-accent);}
+.dbtn.ab{border-color:var(--bcn-accent);background:rgba(232,150,26,.1);color:var(--bcn-accent);}
+.dbtn.al2{border-color:var(--lisboa-accent);background:rgba(232,160,32,.1);color:var(--lisboa-accent);}
+
+/* ── TIMELINE ── */
+.timeline{padding:0 16px 30px;}
+.day-c{display:none;}.day-c.active{display:block;animation:fadeUp .22s ease;}
+.dtitle{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.dtitle h3{font-family:'Playfair Display',serif;font-size:17px;color:#fff;font-weight:600;}
+.dtitle span{font-size:11px;color:#555;}
+.act{display:flex;gap:12px;margin-bottom:10px;position:relative;}
+.act::before{content:'';position:absolute;left:27px;top:42px;width:1px;height:calc(100% - 26px);background:#1e1e1e;}
+.act:last-child::before{display:none;}
+.atime{flex-shrink:0;width:54px;text-align:right;padding-top:11px;}
+.atime span{font-size:10px;color:#444;font-weight:500;}
+.adot{flex-shrink:0;width:14px;display:flex;flex-direction:column;align-items:center;padding-top:15px;}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dl-c{background:var(--lisboa-accent);}.dm-c{background:var(--madri-accent);}.dp-c{background:var(--paris-accent);}.db-c{background:var(--bcn-accent);}
+.acard{flex:1;border-radius:var(--rs);padding:11px 13px;border:1px solid #1e1e1e;background:#111;transition:background .18s;cursor:pointer;}
+.acard:hover{background:#161616;}
+.atype{font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:3px;}
+.tl-c{color:var(--lisboa-accent);}.tm-c{color:var(--madri-accent);}.tp-c{color:var(--paris-accent);}.tb-c{color:var(--bcn-accent);}
+.aname{font-size:13px;font-weight:600;color:#eee;margin-bottom:3px;line-height:1.3;}
+.adesc{font-size:11px;color:#666;line-height:1.5;}
+.ameta{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;align-items:center;}
+.chip{font-size:10px;padding:3px 8px;border-radius:6px;background:#1a1a1a;color:#777;border:1px solid #252525;}
+.chip.cost{color:#5cba7d;border-color:#1a3325;background:#0f1e17;}
+.chip.tip{color:#d4a84b;border-color:#332a10;background:#1a1508;}
+.chip.tr{color:#7b9ed4;border-color:#1a2535;background:#0f1520;}
+.chip.map{color:#34a853;border-color:#1a3020;background:#0a1a10;text-decoration:none;display:inline-flex;align-items:center;gap:3px;cursor:pointer;}
+.chip.map:active{transform:scale(.95);}
+.alt-box{background:#0d0d0d;border:1px dashed #252525;border-radius:var(--rs);padding:10px 12px;margin-top:7px;}
+.alt-title{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.alt-item{font-size:11px;color:#555;margin-bottom:5px;line-height:1.4;}
+.alt-item strong{color:#888;}
+
+/* ── BUDGET & TIPS ── */
+.bcard{margin:0 16px 18px;padding:15px;border-radius:var(--r);background:#111;border:1px solid #1e1e1e;}
+.bcard-h{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:10px;}
+.brow{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.blbl{font-size:12px;color:#777;}.bamt{font-size:12px;font-weight:600;}
+.bal{color:var(--lisboa-soft);}.bam{color:var(--madri-soft);}.bap{color:var(--paris-soft);}.bab{color:var(--bcn-soft);}
+.btotal{margin-top:8px;padding-top:8px;border-top:1px solid #1e1e1e;display:flex;justify-content:space-between;align-items:center;}
+.btl{font-size:13px;font-weight:600;color:#ccc;}.bta{font-size:15px;font-weight:700;color:#fff;}
+.tbox{margin:0 16px 20px;padding:15px;border-radius:var(--r);border:1px solid #1e1e1e;background:#0e0e0e;}
+.tbox-h{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:10px;}
+.ti{display:flex;gap:9px;margin-bottom:9px;font-size:11px;color:#777;line-height:1.5;}
+.ti .ico{flex-shrink:0;}
+
+/* ══════════════════════════════
+   LANGUAGE SECTION
+══════════════════════════════ */
+.lang-panel{padding:14px 16px 100px;}
+
+/* language sub-tabs */
+.lang-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.ltab{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid #222;background:#0d0d0d;color:#555;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.3px;}
+.ltab.act-l{border-color:var(--lisboa-accent);background:rgba(232,160,32,.12);color:var(--lisboa-accent);}
+.ltab.act-m{border-color:var(--madri-accent);background:rgba(192,57,43,.12);color:var(--madri-accent);}
+.ltab.act-p{border-color:var(--paris-accent);background:rgba(74,144,217,.12);color:var(--paris-accent);}
+.ltab.act-b{border-color:var(--bcn-accent);background:rgba(232,150,26,.12);color:var(--bcn-accent);}
+
+.lang-content{display:none;}.lang-content.active{display:block;animation:fadeUp .2s ease;}
+
+/* category header */
+.cat-hdr{display:flex;align-items:center;gap:8px;margin:0 0 10px;}
+.cat-icon{font-size:16px;}
+.cat-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#444;}
+
+/* phrase card */
+.ph-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;margin-bottom:8px;overflow:hidden;}
+.ph-ctx{font-size:9px;text-transform:uppercase;letter-spacing:.8px;padding:7px 13px 0;color:#444;font-weight:600;}
+
+/* phrase row */
+.ph-row{padding:8px 13px 10px;border-bottom:1px solid #161616;}
+.ph-row:last-child{border-bottom:none;}
+
+.ph-lang{font-size:9px;text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+.fl-pt{color:#5c9e6a;}.fl-en{color:#6a8fc4;}.fl-es{color:#c4855a;}.fl-fr{color:#7a7ac4;}.fl-ca{color:#c4a547;}
+
+.ph-phrase{font-family:'Crimson Pro',serif;font-size:17px;color:#e8e8e8;font-style:italic;line-height:1.3;}
+.ph-meaning{font-size:11px;color:#666;margin-top:2px;}
+
+/* pronunciation (French only) */
+.ph-pron{margin-top:4px;padding:4px 8px;border-radius:6px;background:#0d0d1a;border:1px solid #1a1a2e;display:inline-flex;align-items:center;gap:5px;}
+.ph-pron-label{font-size:8px;color:#4a4a7a;text-transform:uppercase;letter-spacing:.5px;}
+.ph-pron-text{font-size:12px;color:#7a90c4;font-weight:500;}
+
+/* category section */
+.lang-cat{margin-bottom:18px;}
+
+/* flag emoji */
+.flag{font-size:13px;}
+
+/* copy tap animation */
+.ph-row{cursor:pointer;transition:background .15s;}
+.ph-row:hover{background:#141414;}
+.ph-row:active{background:#1a1a1a;}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#222;color:#ccc;padding:8px 18px;border-radius:30px;font-size:12px;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.bottom-safe{height:80px;}
+
+@media(min-width:500px){
+  body{background:#050505;padding:20px 0;}
+  .shell{border-radius:38px;border:1px solid #222;min-height:auto;box-shadow:0 30px 80px rgba(0,0,0,.8);}
+}
+</style>
+</head>
+<body>
+<div class="shell" id="app">
+
+<div class="top-nav">
+  <div class="trip-hdr">
+    <div class="trip-title">✈️ Douglas & Caroline</div>
+    <div class="trip-sub">Europa · Maio 2026 · 18 dias</div>
+  </div>
+  <div class="city-tabs">
+    <button class="ctab" onclick="switchCity('l')"  id="ct-l">🇵🇹 Lisboa I</button>
+    <button class="ctab" onclick="switchCity('m')"  id="ct-m">🇪🇸 Madrid</button>
+    <button class="ctab" onclick="switchCity('p')"  id="ct-p">🇫🇷 Paris</button>
+    <button class="ctab" onclick="switchCity('b')"  id="ct-b">🏖️ Barcelona</button>
+    <button class="ctab" onclick="switchCity('l2')" id="ct-l2">🇵🇹 Lisboa II</button>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════╗
+     ║            LISBOA I                  ║
+     ╚══════════════════════════════════════╝ -->
+<div class="cview" id="cv-l">
+  <div class="hero hl">
+    <div class="hero-emoji">🇵🇹</div>
+    <div class="hero-city">Lisboa</div>
+    <div class="hero-dates">05 mai (ter) · 18h → 08 mai (sex) · 06h</div>
+    <div class="hero-tags">
+      <span class="htag tl">🍷 Gastronomia</span><span class="htag tl">🏃 Corrida</span>
+      <span class="htag tl">🛍️ Compras</span><span class="htag tl">🏰 Cultura</span>
+    </div>
+    <div class="hero-budget"><span class="hbl">Orçamento alimentação / casal</span><span class="hbv vl">~€80–100 / dia</span></div>
+  </div>
+
+  <!-- MODE TABS -->
+  <div style="padding:0 16px;">
+    <div class="mode-tabs">
+      <button class="mtab active-l" id="ml-rot" onclick="switchMode('l','rot')">📅 Roteiro</button>
+      <button class="mtab" id="ml-lan" onclick="switchMode('l','lan')">💬 Idiomas</button>
+    </div>
+  </div>
+
+  <!-- ROTEIRO PANEL -->
+  <div class="panel active" id="panel-l-rot">
+    <div class="day-sel" id="ds-l"></div>
+    <div class="timeline" id="tl-l">
+
+      <!-- DIA 1 -->
+      <div class="day-c" id="l-d0">
+        <div class="dtitle"><h3>Chegada + Primeira Noite</h3><span>05 mai · ter</span></div>
+        <div class="act"><div class="atime"><span>18h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">✈️ Chegada</div><div class="aname">Aeroporto Humberto Delgado</div><div class="adesc">Uber ou Bolt até o hotel — mais prático com malas.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span><span class="chip tr">🚗 ~25 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>18h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏨 Check-in</div><div class="aname">Hotel · Rua Rodrigo da Fonseca, 60</div><div class="adesc">Localização privilegiada junto à Av. da Liberdade. Peça mapa do bairro na recepção.</div></div></div>
+        <div class="act"><div class="atime"><span>19h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍽️ Jantar de Chegada</div><div class="aname">Taberna da Rua das Flores</div><div class="adesc">Petiscos criativos numa antiga mercearia do Chiado. Ambiente íntimo, perfeito para a chegada. Não aceita reservas — chegue antes das 19h30.</div><div class="ameta"><span class="chip cost">💶 €30–40 casal</span></div><div class="alt-box"><div class="alt-title">🔀 Alternativas</div><div class="alt-item"><strong>A Cevicheria</strong> — Ceviches criativos, Rua D. Pedro V, 29 (~€35)</div><div class="alt-item"><strong>Tapisco</strong> — Fusão tapas/petiscos, Rua D. Pedro V, 81 (~€35)</div></div></div></div>
+      </div>
+
+      <!-- DIA 2 -->
+      <div class="day-c" id="l-d1">
+        <div class="dtitle"><h3>Belém + LX Factory</h3><span>06 mai · qua</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏃 Corrida</div><div class="aname">Parque Eduardo VII</div><div class="adesc">5–7 km com vista panorâmica ao amanhecer. 5 min do hotel.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">☕ Café da manhã</div><div class="aname">Manteigaria · Praça Luís de Camões</div><div class="adesc">Pastéis de nata recém-saídos do forno. Polvilhe com canela e açúcar como os portugueses.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🚇 Transporte</div><div class="aname">Metrô + Bonde 15E → Belém</div><div class="adesc">Metrô até Cais do Sodré + Eléctrico 15E. A viagem à beira do Tejo já é parte do passeio.</div><div class="ameta"><span class="chip cost">💶 €10 casal</span><span class="chip tr">🚋 ~40 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h45</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏛️ Cultura</div><div class="aname">Mosteiro dos Jerónimos</div><div class="adesc">Obra-prima Manuelina, Patrimônio UNESCO. Gratuito até 10h — chegue cedo!</div><div class="ameta"><span class="chip cost">💶 Grátis até 10h</span><span class="chip tip">💡 Não perca o claustro superior</span></div></div></div>
+        <div class="act"><div class="atime"><span>10h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">☕ Obrigatório</div><div class="aname">Pastéis de Belém · A Original 1837</div><div class="adesc">A receita original guardada a sete chaves desde 1837. Coma fresquinhos na calçada.</div><div class="ameta"><span class="chip cost">💶 ~€6 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🎨 Arte</div><div class="aname">Museu Berardo</div><div class="adesc">Picasso, Warhol, Duchamp — de nível mundial e completamente gratuito.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍽️ Almoço</div><div class="aname">O Prego da Peça</div><div class="adesc">Steakhouse informal famoso pelo prego no pão artesanal. Peça com queijo da ilha.</div><div class="ameta"><span class="chip cost">💶 €20–28 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>14h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🛍️ Passeio</div><div class="aname">LX Factory</div><div class="adesc">Complexo criativo com a incrível Livraria Ler Devagar, ateliês e marcas portuguesas.</div><div class="ameta"><span class="chip cost">💶 Entrada grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>18h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍔 Jantar</div><div class="aname">LX Burger</div><div class="adesc">Hambúrgueres artesanais no coração do LX Factory. Ambiente descolado e cerveja artesanal.</div><div class="ameta"><span class="chip cost">💶 €24–30 casal</span><span class="chip tip">💡 Alt: Sea Me (R. do Loreto, 21) ~€40</span></div></div></div>
+      </div>
+
+      <!-- DIA 3 -->
+      <div class="day-c" id="l-d2">
+        <div class="dtitle"><h3>Centro + Alfama</h3><span>07 mai · qui</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏃 Corrida</div><div class="aname">Parque Eduardo VII</div><div class="adesc">Rotina matinal com panorama da cidade ao nascer do sol.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">☕ Café da manhã</div><div class="aname">Café A Brasileira · Chiado</div><div class="adesc">O café mais famoso de Lisboa, aberto desde 1905. Fernando Pessoa tomava café aqui — a estátua dele está na calçada!</div><div class="ameta"><span class="chip cost">💶 €12–16 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🚶 Passeio</div><div class="aname">Av. da Liberdade → Rossio</div><div class="adesc">A avenida mais elegante de Lisboa com vitrines de luxo e arquitetura pombalina.</div></div></div>
+        <div class="act"><div class="atime"><span>10h15</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏛️ Atração</div><div class="aname">Elevador de Santa Justa</div><div class="adesc">Elevador neo-gótico de 1902 com terraço e vista do Chiado e do castelo.</div><div class="ameta"><span class="chip cost">💶 €10 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🛍️ Compras</div><div class="aname">Chiado · Rua do Carmo & Garrett</div><div class="adesc">Zara, H&M, Pull & Bear e lojas portuguesas. Passe na Livraria Bertrand (1732, mais antiga do mundo!).<a class="chip map" href="https://maps.google.com/?q=Rua+do+Carmo,Chiado,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍽️ Almoço</div><div class="aname">Palácio Chiado · Rua do Alecrim, 70</div><div class="adesc">4 restaurantes num palácio histórico. Peça em bancas diferentes e reúna na mesa.</div><div class="ameta"><span class="chip cost">💶 €28–36 casal</span><span class="chip tip">💡 Alt: Café Nicola no Rossio (~€26)</span><a class="chip map" href="https://maps.google.com/?q=Palacio+Chiado,Rua+do+Alecrim,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>15h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🏰 Destaque do Dia</div><div class="aname">Alfama + Castelo de São Jorge</div><div class="adesc">O bairro mais antigo de Lisboa. Vista 360° do castelo. Explore sem pressa — ouça fado num bar.</div><div class="ameta"><span class="chip cost">💶 €30 casal (castelo)</span><a class="chip map" href="https://maps.google.com/?q=Castelo+de+Sao+Jorge,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>18h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🛍️ Compras</div><div class="aname">Av. da Liberdade · Zara / Mango</div><div class="adesc">Última sessão de compras antes da saída cedo amanhã.</div></div></div>
+        <div class="act"><div class="atime"><span>20h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍽️ Jantar</div><div class="aname">Pinóquio Rossio</div><div class="adesc">Restaurante tradicional desde 1977, especialidade em marisco e peixe fresco no Rossio.</div><div class="ameta"><span class="chip cost">💶 €32–40 casal</span><span class="chip tip">💡 Alt especial: Tasca do Chico (fado ao vivo) ~€45</span><a class="chip map" href="https://maps.google.com/?q=Restaurante+Pinoquio,Rossio,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+
+      <!-- DIA 4 -->
+      <div class="day-c" id="l-d3">
+        <div class="dtitle"><h3>Partida para Madrid</h3><span>08 mai · sex</span></div>
+        <div class="act"><div class="atime"><span>05h30</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">✈️ Partida</div><div class="aname">Uber → Aeroporto</div><div class="adesc">Saída cedo. Uber garante pontualidade. Chegue 2h antes do voo das 06h.</div><div class="ameta"><span class="chip cost">💶 €7–12 casal</span><span class="chip tr">🚗 ~25 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>06h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">✈️ Voo</div><div class="aname">Lisboa → Madrid</div><div class="adesc">~1h15 de voo. Chegada às 9h em Madrid — um dia cheio pela frente!</div></div></div>
+      </div>
+    </div><!-- /tl-l -->
+
+    <div class="bcard"><div class="bcard-h">💶 Estimativa · Lisboa I</div>
+      <div class="brow"><span class="blbl">Alimentação (3 dias)</span><span class="bamt bal">€240–300</span></div>
+      <div class="brow"><span class="blbl">Transporte local</span><span class="bamt bal">~€40</span></div>
+      <div class="brow"><span class="blbl">Atrações / Ingressos</span><span class="bamt bal">~€60–80</span></div>
+      <div class="btotal"><span class="btl">Total estimado</span><span class="bta">€340–420</span></div>
+    </div>
+    <div class="tbox"><div class="tbox-h">💡 Dicas · Lisboa</div>
+      <div class="ti"><span class="ico">📱</span><span>Bolt é mais barato que Uber em Lisboa</span></div>
+      <div class="ti"><span class="ico">💳</span><span>Wise ou Nomad: sem IOF, câmbio real — essencial em toda a viagem</span></div>
+      <div class="ti"><span class="ico">👟</span><span>Tênis confortáveis — Lisboa tem muito paralelepípedo!</span></div>
+      <div class="ti"><span class="ico">🌡️</span><span>Maio: 18–23°C · leve uma camada leve para as noites</span></div>
+    </div>
+  </div><!-- /panel roteiro -->
+
+  <!-- IDIOMAS PANEL - LISBOA -->
+  <div class="panel" id="panel-l-lan">
+    <div class="lang-panel">
+      <div class="lang-tabs">
+        <button class="ltab act-l" onclick="switchLang('l','pt')" id="ll-pt">🇵🇹 Português</button>
+        <button class="ltab" onclick="switchLang('l','en')" id="ll-en">🇬🇧 English</button>
+      </div>
+
+      <!-- PT Lisboa -->
+      <div class="lang-content active" id="lc-l-pt">
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurantes & Bares</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Uma mesa para dois, por favor.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Uma mesa para dois, por favor.</div><div class="ph-meaning">Pedido de mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('A conta, por favor.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">A conta, por favor.</div><div class="ph-meaning">Pedir a conta</div></div>
+            <div class="ph-row" onclick="copyPhrase('Qual é o prato do dia?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Qual é o prato do dia?</div><div class="ph-meaning">Prato do dia</div></div>
+            <div class="ph-row" onclick="copyPhrase('Está delicioso! Parabéns ao chef.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Está delicioso! Parabéns ao chef.</div><div class="ph-meaning">Elogio à comida</div></div>
+            <div class="ph-row" onclick="copyPhrase('Um pastel de nata e um galão, por favor.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Um pastel de nata e um galão, por favor.</div><div class="ph-meaning">Pedido clássico de café</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🚇</span><span class="cat-title">Transporte & Direções</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Onde fica o metro mais próximo?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Onde fica o metro mais próximo?</div><div class="ph-meaning">Localizar estação</div></div>
+            <div class="ph-row" onclick="copyPhrase('Quero ir a Belém. Qual bonde devo tomar?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Quero ir a Belém. Qual bonde devo tomar?</div><div class="ph-meaning">Ir a Belém de bonde</div></div>
+            <div class="ph-row" onclick="copyPhrase('Pode chamar um Bolt para mim?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Pode chamar um Bolt para mim?</div><div class="ph-meaning">Pedir táxi</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🛍️</span><span class="cat-title">Compras</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Tem este em tamanho maior / menor?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Tem este em tamanho maior / menor?</div><div class="ph-meaning">Troca de tamanho</div></div>
+            <div class="ph-row" onclick="copyPhrase('Posso experimentar?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Posso experimentar?</div><div class="ph-meaning">Pedir para provar</div></div>
+            <div class="ph-row" onclick="copyPhrase('Aceita cartão de crédito internacional?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Aceita cartão de crédito internacional?</div><div class="ph-meaning">Forma de pagamento</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🆘</span><span class="cat-title">Emergências & Essenciais</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Preciso de ajuda, por favor.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Preciso de ajuda, por favor.</div><div class="ph-meaning">Pedir socorro</div></div>
+            <div class="ph-row" onclick="copyPhrase('Onde fica o hospital mais próximo?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Onde fica o hospital mais próximo?</div><div class="ph-meaning">Hospital</div></div>
+            <div class="ph-row" onclick="copyPhrase('Fala português do Brasil?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Fala português do Brasil?</div><div class="ph-meaning">Diferenciar PT de PT-BR</div></div>
+            <div class="ph-row" onclick="copyPhrase('Obrigado / Obrigada! Boa viagem para vocês também!')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Obrigado! Adorámos muito Lisboa.</div><div class="ph-meaning">Despedida gentil</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EN Lisboa -->
+      <div class="lang-content" id="lc-l-en">
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurants & Bars</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('A table for two, please.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">A table for two, please.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('Could we have the bill, please?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Could we have the bill, please?</div><div class="ph-meaning">Pedir a conta</div></div>
+            <div class="ph-row" onclick="copyPhrase('What do you recommend?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">What do you recommend?</div><div class="ph-meaning">Pedir recomendação</div></div>
+            <div class="ph-row" onclick="copyPhrase('Is this dish gluten-free?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Is this dish gluten-free?</div><div class="ph-meaning">Restrição alimentar</div></div>
+            <div class="ph-row" onclick="copyPhrase('This is absolutely delicious!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">This is absolutely delicious!</div><div class="ph-meaning">Elogiar a comida</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🚇</span><span class="cat-title">Transport & Getting Around</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('How do I get to Belém from here?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">How do I get to Belém from here?</div><div class="ph-meaning">Direções para Belém</div></div>
+            <div class="ph-row" onclick="copyPhrase('Does this tram go to the city centre?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Does this tram go to the city centre?</div><div class="ph-meaning">Confirmar rota do bonde</div></div>
+            <div class="ph-row" onclick="copyPhrase('Can you call me a taxi, please?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Can you call me a taxi, please?</div><div class="ph-meaning">Pedir táxi</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🛍️</span><span class="cat-title">Shopping</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Do you have this in a larger / smaller size?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Do you have this in a larger / smaller size?</div><div class="ph-meaning">Trocar tamanho</div></div>
+            <div class="ph-row" onclick="copyPhrase('Can I try this on?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Can I try this on?</div><div class="ph-meaning">Experimentar roupa</div></div>
+            <div class="ph-row" onclick="copyPhrase('Do you accept international credit cards?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Do you accept international credit cards?</div><div class="ph-meaning">Pagamento</div></div>
+          </div>
+        </div>
+        <div class="lang-cat">
+          <div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Useful Phrases</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('I need help, please.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">I need help, please.</div><div class="ph-meaning">Pedir socorro</div></div>
+            <div class="ph-row" onclick="copyPhrase('Where is the nearest pharmacy?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Where is the nearest pharmacy?</div><div class="ph-meaning">Farmácia</div></div>
+            <div class="ph-row" onclick="copyPhrase('We are from Brazil. Do you speak Portuguese?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">We are from Brazil. Do you speak Portuguese?</div><div class="ph-meaning">Apresentação</div></div>
+            <div class="ph-row" onclick="copyPhrase('Thank you so much. We loved Lisbon!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Thank you so much. We loved Lisbon!</div><div class="ph-meaning">Despedida calorosa</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /panel idiomas -->
+</div><!-- /cv-l -->
+
+
+<!-- ╔══════════════════════════════════════╗
+     ║              MADRID                  ║
+     ╚══════════════════════════════════════╝ -->
+<div class="cview" id="cv-m">
+  <div class="hero hm">
+    <div class="hero-emoji">🇪🇸</div><div class="hero-city">Madrid</div>
+    <div class="hero-dates">08 mai (sex) · 09h → 12 mai (ter) · 20h</div>
+    <div class="hero-tags"><span class="htag tm">⚽ Futebol</span><span class="htag tm">🥘 Tapas</span><span class="htag tm">🏛️ Museus</span><span class="htag tm">🛍️ Compras</span></div>
+    <div class="hero-budget"><span class="hbl">Orçamento alimentação / casal</span><span class="hbv vm">~€80–100 / dia</span></div>
+  </div>
+  <div style="padding:0 16px;"><div class="mode-tabs">
+    <button class="mtab active-m" id="mm-rot" onclick="switchMode('m','rot')">📅 Roteiro</button>
+    <button class="mtab" id="mm-lan" onclick="switchMode('m','lan')">💬 Idiomas</button>
+  </div></div>
+
+  <div class="panel active" id="panel-m-rot">
+    <div class="day-sel" id="ds-m"></div>
+    <div class="timeline" id="tl-m">
+      <div class="day-c" id="m-d0">
+        <div class="dtitle"><h3>Chegada + Centro Histórico</h3><span>08 mai · sex</span></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">✈️ Chegada</div><div class="aname">Barajas → Centro · Bus Exprés</div><div class="adesc">Bus Exprés até Atocha. Direto e econômico.</div><div class="ameta"><span class="chip cost">💶 ~€5/pessoa</span><span class="chip tr">🚌 ~40 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>10h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏨 Check-in</div><div class="aname">Calle Julián Gayarre, 8</div><div class="adesc">Localização perto do Retiro. Sem corrida hoje — direto para o café histórico.</div></div></div>
+        <div class="act"><div class="atime"><span>10h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">☕ Café da manhã</div><div class="aname">Café Gijón · Paseo de Recoletos</div><div class="adesc">Café histórico de 1888 onde intelectuais se reuniam. Croissant + cortado — ambiente 100% madrilenho.</div><div class="ameta"><span class="chip cost">💶 €12–16 casal</span><a class="chip map" href="https://maps.google.com/?q=Cafe+Gijon,Paseo+de+Recoletos,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Almoço</div><div class="aname">Mercado de Antón Martín</div><div class="adesc">Mercado local autêntico — muito menos turístico que San Miguel. Jamón, frutos do mar e vermute.</div><div class="ameta"><span class="chip cost">💶 €25–35 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>14h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏛️ Cultura</div><div class="aname">Plaza Mayor + Mercado de San Miguel</div><div class="adesc">Plaza barroca do século XVII. No San Miguel, bocadillo de calamares — clássico madrilenho!</div><div class="ameta"><span class="chip cost">💶 Tapas: €15–25 casal</span><a class="chip map" href="https://maps.google.com/?q=Plaza+Mayor,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>16h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏰 Atração</div><div class="aname">Palácio Real de Madrid</div><div class="adesc">O maior palácio da Europa Ocidental. Salas ricamente decoradas e Jardins de Sabatini.</div><div class="ameta"><span class="chip cost">💶 €14/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Palacio+Real+de+Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>18h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🌅 Pôr do Sol</div><div class="aname">Templo de Debod</div><div class="adesc">Templo egípcio de 2.200 anos com pôr do sol espetacular — e completamente gratuito.</div><div class="ameta"><span class="chip cost">💶 Grátis</span><a class="chip map" href="https://maps.google.com/?q=Templo+de+Debod,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍫 Clássico + 🍽️ Jantar</div><div class="aname">San Ginés + La Musa · Malasaña</div><div class="adesc">Churros históricos de 1894 como aperitivo, depois jantar no La Musa: tapas modernas num bairro alternativo animado numa sexta.</div><div class="ameta"><span class="chip cost">💶 €40–50 casal (total)</span><a class="chip map" href="https://maps.google.com/?q=La+Musa,Malasana,Madrid" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="m-d1">
+        <div class="dtitle"><h3>Toledo + Flamenco</h3><span>09 mai · sáb</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏃 Corrida</div><div class="aname">Parque del Retiro</div><div class="adesc">5km pelo lago e jardins. Sábado cedo o parque é dos locais.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">☕ Café da manhã</div><div class="aname">Tostada con Tomate · Bar do Retiro</div><div class="adesc">Pão tostado com tomate ralado e azeite — o café da manhã madrilenho genuíno.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h40</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🚄 Excursão</div><div class="aname">Atocha → Toledo (AVE)</div><div class="adesc">30 min até a cidade medieval da UNESCO. Compre bilhete antecipado em Renfe.com.</div><div class="ameta"><span class="chip cost">💶 €20–30 casal ida/volta</span><a class="chip map" href="https://maps.google.com/?q=Estacion+de+Atocha,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏰 Toledo</div><div class="aname">Catedral + Alcázar + Bairro Judeu</div><div class="adesc">Cidade das três culturas. Vista 360° do Alcázar e ruelas medievais sem mapa.</div><div class="ameta"><span class="chip cost">💶 Catedral €12/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Catedral+de+Toledo,Toledo,Spain" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Almoço</div><div class="aname">Cocido Manchego em Toledo</div><div class="adesc">Cozido com grão-de-bico, chouriço e carne — o prato regional da Castela.</div><div class="ameta"><span class="chip cost">💶 €25–35 casal</span><a class="chip map" href="https://maps.google.com/?q=Restaurante+Adolfo,Toledo,Spain" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Jantar + 💃 Flamenco</div><div class="aname">Tapas em La Latina → Corral de la Morería</div><div class="adesc">Jantar rápido nas tascas de La Latina, depois o tablao mais prestigiado de Madrid. Reserve em moreria.com.</div><div class="ameta"><span class="chip cost">💶 €25 (jantar) + €50–100/pessoa (flamenco)</span></div></div></div>
+      </div>
+      <div class="day-c" id="m-d2">
+        <div class="dtitle"><h3>Futebol · Bernabéu + Atlético</h3><span>10 mai · dom</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏃 Corrida</div><div class="aname">Parque del Retiro</div><div class="adesc">Domingo no Retiro é animado — famílias, músicos e lago belo.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h15</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">☕ Brunch de domingo</div><div class="aname">Bendita Locura Coffee · Malasaña</div><div class="adesc">Domingo é dia de brunch em Madrid! Ovos, sucos e pão tostado no bairro mais alternativo.</div><div class="ameta"><span class="chip cost">💶 €16–22 casal</span><a class="chip map" href="https://maps.google.com/?q=Bendita+Locura+Coffee,Malasana,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">⚽ Tour</div><div class="aname">Santiago Bernabéu</div><div class="adesc">Campo, vestiários, troféus e museu do Real Madrid. Reserve em realmadrid.com.</div><div class="ameta"><span class="chip cost">💶 ~€30/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Estadio+Santiago+Bernabeu,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Almoço</div><div class="aname">Paella · La Barraca</div><div class="adesc">Endereço mais tradicional de Madrid para paella. Arroz mixto com o famoso "socarrat".</div><div class="ameta"><span class="chip cost">💶 €35–45 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Barraca+restaurante,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">⚽ Jogo</div><div class="aname">Atlético de Madrid · Cívitas Metropolitano</div><div class="adesc">Chegue 1h antes. Um dos estádios mais modernos da Europa. Ingresso em atleticodemadrid.com.</div><div class="ameta"><span class="chip tr">🚇 Metrô L7 · Estadio Cívitas</span></div></div></div>
+        <div class="act"><div class="atime"><span>19h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Jantar pós-jogo</div><div class="aname">La Paella de Madrid</div><div class="adesc">Restaurante tradicional para encerrar o dia futebolístico.</div><div class="ameta"><span class="chip cost">💶 €30–40 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Paella+de+Madrid" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="m-d3">
+        <div class="dtitle"><h3>Prado + Gran Vía + Compras</h3><span>11 mai · seg</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏃 Corrida</div><div class="aname">Parque del Retiro</div><div class="adesc">Rotina matinal antes de um dia cultural e de compras.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">☕ Café da manhã</div><div class="aname">Tostadas + Zumo · Bar local do Retiro</div><div class="adesc">Café genuíno dos moradores — tostada com tomate e zumo de naranja natural.</div><div class="ameta"><span class="chip cost">💶 €8–10 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🎨 Cultura</div><div class="aname">Museu do Prado</div><div class="adesc">Velázquez, Goya, El Greco. Foque nas salas 12 (Velázquez) e 64–67 (Goya negro). Chegue às 9h.</div><div class="ameta"><span class="chip cost">💶 €15/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Museo+del+Prado,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Almoço</div><div class="aname">Mercado de la Reina</div><div class="adesc">Bar junto à Gran Vía com pintxos, jamón e croquetas. Rápido e variado antes das compras.</div><div class="ameta"><span class="chip cost">💶 €25–35 casal</span><a class="chip map" href="https://maps.google.com/?q=Mercado+de+la+Reina,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🛍️ Compras</div><div class="aname">Gran Vía + El Corte Inglés Gourmet</div><div class="adesc">Zara, Primark, Mango e o El Corte Inglés Gourmet com os melhores produtos espanhóis.</div><div class="ameta"><span class="chip tip">💡 Jamón Ibérico: presente perfeito</span><a class="chip map" href="https://maps.google.com/?q=Gran+Via,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>18h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍸 Vermute</div><div class="aname">Hora del Vermut · Bairro de Las Letras</div><div class="adesc">Ritual espanhol: vermute gelado com azeitonas e boquerones entre 18–21h.</div><div class="ameta"><span class="chip cost">💶 €10–15 casal</span><a class="chip map" href="https://maps.google.com/?q=Barrio+de+las+Letras,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>21h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Jantar</div><div class="aname">Casa Labra · Tortilla de Bacalhau</div><div class="adesc">Taberna histórica de 1860. Peça a tortilla de bacalao — especialidade desde sempre.</div><div class="ameta"><span class="chip cost">💶 €25–35 casal</span><a class="chip map" href="https://maps.google.com/?q=Casa+Labra,Madrid" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="m-d4">
+        <div class="dtitle"><h3>Despedida + Partida</h3><span>12 mai · ter</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🏃 + 🚣 Barco</div><div class="aname">Retiro · Barco no Lago</div><div class="adesc">Última manhã em Madrid — aluguem um barco no lago. Atividade especial para o casal.</div><div class="ameta"><span class="chip cost">💶 ~€6 (45 min)</span></div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🎨 Arte</div><div class="aname">Museu Reina Sofía · Guernica</div><div class="adesc">O Guernica de Picasso fica aqui — uma das obras mais importantes do século XX.</div><div class="ameta"><span class="chip cost">💶 €12/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Museo+Reina+Sofia,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">🍽️ Almoço de Despedida</div><div class="aname">Cocido Madrileño · Lhardy</div><div class="adesc">O prato mais tradicional no restaurante mais antigo (1839). Reserve em lhardy.com.</div><div class="ameta"><span class="chip cost">💶 €50–70 casal</span><a class="chip map" href="https://maps.google.com/?q=Lhardy+restaurante,Madrid" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>17h00</span></div><div class="adot"><div class="dot dm-c"></div></div><div class="acard"><div class="atype tm-c">✈️ Partida</div><div class="aname">Bus Exprés Atocha → Aeroporto</div><div class="adesc">Voo às 20h — saída às 17h garante conforto.</div><div class="ameta"><span class="chip cost">💶 ~€5/pessoa</span><span class="chip tr">🚌 ~40 min</span></div></div></div>
+      </div>
+    </div>
+    <div class="bcard"><div class="bcard-h">💶 Estimativa · Madrid</div>
+      <div class="brow"><span class="blbl">Alimentação (4 dias)</span><span class="bamt bam">€350–450</span></div>
+      <div class="brow"><span class="blbl">Toledo + Flamenco</span><span class="bamt bam">€180–280</span></div>
+      <div class="brow"><span class="blbl">Futebol + Bernabéu</span><span class="bamt bam">~€100</span></div>
+      <div class="btotal"><span class="btl">Total estimado</span><span class="bta">€630–830</span></div>
+    </div>
+    <div class="tbox"><div class="tbox-h">💡 Dicas · Madrid</div>
+      <div class="ti"><span class="ico">⏰</span><span>Madrid janta depois das 21h — chegue às 20h30</span></div>
+      <div class="ti"><span class="ico">🚇</span><span>Bilhete de 10 viagens (€12,20) compensa muito</span></div>
+      <div class="ti"><span class="ico">🌡️</span><span>Maio: 16–24°C · noites frescas, leve jaqueta leve</span></div>
+    </div>
+  </div>
+
+  <!-- IDIOMAS - MADRID -->
+  <div class="panel" id="panel-m-lan">
+    <div class="lang-panel">
+      <div class="lang-tabs">
+        <button class="ltab act-m" onclick="switchLang('m','es')" id="lm-es">🇪🇸 Español</button>
+        <button class="ltab" onclick="switchLang('m','en')" id="lm-en">🇬🇧 English</button>
+        <button class="ltab" onclick="switchLang('m','pt')" id="lm-pt">🇧🇷 Português</button>
+      </div>
+
+      <!-- ES Madrid -->
+      <div class="lang-content active" id="lc-m-es">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurantes & Bares de Tapas</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Una mesa para dos, por favor.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">Una mesa para dos, por favor.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('La cuenta, por favor.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">La cuenta, por favor.</div><div class="ph-meaning">Pedir a conta</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Cuál es el menú del día?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Cuál es el menú del día?</div><div class="ph-meaning">Menú do dia</div></div>
+            <div class="ph-row" onclick="copyPhrase('Ponme una caña y unas bravas, por favor.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">Ponme una caña y unas bravas, por favor.</div><div class="ph-meaning">Pedir cerveja e patatas bravas</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Me puede traer más pan?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Me puede traer más pan?</div><div class="ph-meaning">Pedir mais pão</div></div>
+            <div class="ph-row" onclick="copyPhrase('¡Está buenísimo! Enhorabuena al cocinero.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¡Está buenísimo! Enhorabuena al cocinero.</div><div class="ph-meaning">Elogiar a comida</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">⚽</span><span class="cat-title">Futebol & Atrações</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('¿Dónde puedo comprar entradas para el partido?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Dónde puedo comprar entradas para el partido?</div><div class="ph-meaning">Comprar ingressos</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿A qué hora empieza el partido?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿A qué hora empieza el partido?</div><div class="ph-meaning">Hora do jogo</div></div>
+            <div class="ph-row" onclick="copyPhrase('¡Campeones! ¡Campeones!')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¡Campeones! ¡Campeones!</div><div class="ph-meaning">Canto da torcida</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Direções & Essenciais</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('¿Cómo llego al Museo del Prado?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Cómo llego al Museo del Prado?</div><div class="ph-meaning">Ir ao Prado</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Cuánto cuesta el metro?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Cuánto cuesta el metro?</div><div class="ph-meaning">Preço do metrô</div></div>
+            <div class="ph-row" onclick="copyPhrase('Somos de Brasil. ¡Madrid es increíble!')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">Somos de Brasil. ¡Madrid es increíble!</div><div class="ph-meaning">Apresentação simpática</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Habla inglés o portugués?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Habla inglés o portugués?</div><div class="ph-meaning">Pedir outro idioma</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EN Madrid -->
+      <div class="lang-content" id="lc-m-en">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurants & Tapas Bars</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('A table for two, please.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">A table for two, please.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('Could we see the menu, please?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Could we see the menu, please?</div><div class="ph-meaning">Pedir cardápio</div></div>
+            <div class="ph-row" onclick="copyPhrase('What is the house speciality?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">What is the house speciality?</div><div class="ph-meaning">Especialidade da casa</div></div>
+            <div class="ph-row" onclick="copyPhrase('The bill, please. We\'ll pay by card.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">The bill, please. We'll pay by card.</div><div class="ph-meaning">Conta com cartão</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Getting Around</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('How do I get to the Retiro Park?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">How do I get to the Retiro Park?</div><div class="ph-meaning">Chegar ao Retiro</div></div>
+            <div class="ph-row" onclick="copyPhrase('Where can I buy a 10-trip metro card?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Where can I buy a 10-trip metro card?</div><div class="ph-meaning">Bilhete de 10 viagens</div></div>
+            <div class="ph-row" onclick="copyPhrase('Is this the right train to Toledo?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Is this the right train to Toledo?</div><div class="ph-meaning">Confirmar trem a Toledo</div></div>
+            <div class="ph-row" onclick="copyPhrase('We\'re from Brazil. We are loving Madrid!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">We're from Brazil. We are loving Madrid!</div><div class="ph-meaning">Apresentação calorosa</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PT Madrid -->
+      <div class="lang-content" id="lc-m-pt">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">💡</span><span class="cat-title">Dica: espanhol é próximo ao português!</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Uma mesa para dois, obrigado.')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Mesa para dois — funciona!</div><div class="ph-meaning">O espanhol entende facilmente o português</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗣️</span><span class="cat-title">Palavras-chave que funcionam nos dois idiomas</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Por favor')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Por favor</div><div class="ph-meaning">Igual nos dois idiomas ✅</div></div>
+            <div class="ph-row" onclick="copyPhrase('Obrigado / Gracias')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Obrigado → Gracias</div><div class="ph-meaning">Muito parecidos — entendem bem</div></div>
+            <div class="ph-row" onclick="copyPhrase('Onde fica...?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Onde fica...? → ¿Dónde está...?</div><div class="ph-meaning">Perguntar localização</div></div>
+            <div class="ph-row" onclick="copyPhrase('Quanto custa?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Quanto custa? → ¿Cuánto cuesta?</div><div class="ph-meaning">Pedir preço</div></div>
+            <div class="ph-row" onclick="copyPhrase('Sou do Brasil — falo português.')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Sou do Brasil. Falo português.</div><div class="ph-meaning">Em muitos casos o espanhol entende!</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /cv-m -->
+
+
+<!-- ╔══════════════════════════════════════╗
+     ║               PARIS                  ║
+     ╚══════════════════════════════════════╝ -->
+<div class="cview" id="cv-p">
+  <div class="hero hp">
+    <div class="hero-emoji">🇫🇷</div><div class="hero-city">Paris</div>
+    <div class="hero-dates">12 mai (ter) · 22h → 17 mai (dom) · 07h</div>
+    <div class="hero-tags"><span class="htag tp">🗼 Monumentos</span><span class="htag tp">🏰 Versalhes</span><span class="htag tp">🎡 Disney</span><span class="htag tp">🥐 Gastronomia</span></div>
+    <div class="hero-budget"><span class="hbl">Orçamento alimentação / casal</span><span class="hbv vp">~€100 / dia</span></div>
+  </div>
+  <div style="padding:0 16px;"><div class="mode-tabs">
+    <button class="mtab active-p" id="mp-rot" onclick="switchMode('p','rot')">📅 Roteiro</button>
+    <button class="mtab" id="mp-lan" onclick="switchMode('p','lan')">💬 Idiomas</button>
+  </div></div>
+
+  <div class="panel active" id="panel-p-rot">
+    <div class="day-sel" id="ds-p"></div>
+    <div class="timeline" id="tl-p">
+      <div class="day-c" id="p-d0">
+        <div class="dtitle"><h3>Chegada Tardia</h3><span>12 mai · ter</span></div>
+        <div class="act"><div class="atime"><span>22h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">✈️ Chegada</div><div class="aname">CDG → Paris · RER B</div><div class="adesc">RER B até Châtelet-Les Halles. Se lotado, Uber ~€50.</div><div class="ameta"><span class="chip cost">💶 €12/pessoa</span><span class="chip tr">🚆 ~45 min</span><a class="chip map" href="https://maps.google.com/?q=Aeroport+Charles+de+Gaulle,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>23h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏨 Check-in</div><div class="aname">68 Rue de Cléry, 75002</div><div class="adesc">2ème arrondissement — 5 min de Châtelet. Baixe Citymapper.<a class="chip map" href="https://maps.google.com/?q=68+Rue+de+Clery,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>23h15</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍽️ Jantar tardio</div><div class="aname">Chez Denise · Rue Montorgueil</div><div class="adesc">Bistrô com abertura tardia. Escargot, confit de canard e vinho da casa.</div><div class="ameta"><span class="chip cost">💶 ~€50 casal</span><a class="chip map" href="https://maps.google.com/?q=Chez+Denise,Rue+Montorgueil,Paris" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="p-d1">
+        <div class="dtitle"><h3>Torre Eiffel + Cruzeiro + Ópera</h3><span>13 mai · qua</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏃 Corrida</div><div class="aname">Canal Saint-Martin</div><div class="adesc">O canal mais fotogênico de Paris ao amanhecer.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">☕ Café da manhã</div><div class="aname">Stohrer · 51 Rue Montorgueil</div><div class="adesc">Confeitaria mais antiga de Paris (1730). Croissants históricos.</div><div class="ameta"><span class="chip cost">💶 ~€12 casal</span><a class="chip map" href="https://maps.google.com/?q=Stohrer,51+Rue+Montorgueil,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🗼 Ícone</div><div class="aname">Torre Eiffel · Summit</div><div class="adesc">Reserve com meses de antecedência em toureiffel.paris!</div><div class="ameta"><span class="chip cost">💶 €30/pessoa</span><span class="chip tr">🚆 RER C</span><a class="chip map" href="https://maps.google.com/?q=Tour+Eiffel,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">📸 Foto</div><div class="aname">Trocadéro</div><div class="adesc">A foto clássica frontal da Torre Eiffel.</div><div class="ameta"><span class="chip tr">🚇 Linha 6</span><a class="chip map" href="https://maps.google.com/?q=Trocadero,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍽️ Almoço</div><div class="aname">L'Escargot Montorgueil</div><div class="adesc">Histórico (1875), especialidade em escargot. Alt econômica: baguete + Monoprix.</div><div class="ameta"><span class="chip cost">💶 ~€30 casal</span><a class="chip map" href="https://maps.google.com/?q=L+Escargot+Montorgueil,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">⛵ Cruzeiro</div><div class="aname">Sena · Bateaux Parisiens</div><div class="adesc">1h pelo coração de Paris: Notre-Dame, Louvre, Musée d'Orsay.</div><div class="ameta"><span class="chip cost">💶 €18/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Bateaux+Parisiens,Pont+de+l+Alma,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>16h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🧀 Piquenique</div><div class="aname">Champ de Mars · Pôr do Sol</div><div class="adesc">Queijos, vinhos e baguete no jardim frontal à Torre Eiffel.</div><div class="ameta"><span class="chip cost">💶 ~€20 casal</span><a class="chip map" href="https://maps.google.com/?q=Champ+de+Mars,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>19h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🎭 Ópera</div><div class="aname">Opéra Garnier</div><div class="adesc">Interior com cúpula de Chagall. Visita ou espetáculo.</div><div class="ameta"><span class="chip cost">💶 €14/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Opera+Garnier,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🛍️ + 🥞 Jantar</div><div class="aname">Galeries Lafayette → Breizh Café</div><div class="adesc">Terraço gratuito com vista do Sacré-Cœur. Depois, os melhores crêpes de Paris.</div><div class="ameta"><span class="chip cost">💶 ~€40 casal</span><a class="chip map" href="https://maps.google.com/?q=Galeries+Lafayette,Paris" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="p-d2">
+        <div class="dtitle"><h3>Disneyland Paris 🎡</h3><span>14 mai · qui</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏃 Corrida</div><div class="aname">Jardim das Tulherias</div><div class="adesc">Corrida leve antes do dia longo na Disney.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">☕ Café da manhã</div><div class="aname">Paul Boulangerie</div><div class="adesc">Café reforçado antes da Disney — croissant + pain au chocolat.</div><div class="ameta"><span class="chip cost">💶 ~€14 casal</span><a class="chip map" href="https://maps.google.com/?q=Paul+Boulangerie,Chatelet,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🎡 Dia Especial</div><div class="aname">Disneyland Paris</div><div class="adesc">Space Mountain, Avengers Campus, Big Thunder. Disney Premier Access para furo de fila.</div><div class="ameta"><span class="chip cost">💶 ~€100/pessoa</span><span class="chip tr">🚆 RER A · 40 min</span><a class="chip map" href="https://maps.google.com/?q=Disneyland+Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍷 Jantar</div><div class="aname">Bouillon Chartier</div><div class="adesc">Culinária francesa clássica sem reserva, aberto até meia-noite. 7 Rue Fbg Montmartre.</div><div class="ameta"><span class="chip cost">💶 ~€25 casal</span><a class="chip map" href="https://maps.google.com/?q=Bouillon+Chartier,Paris" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="p-d3">
+        <div class="dtitle"><h3>Louvre + Arco + Saint-Chapelle</h3><span>15 mai · sex</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏃 Corrida</div><div class="aname">Canal Saint-Martin</div><div class="adesc">Sexta de manhã com os parisienses indo trabalhar.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">☕ Café da manhã</div><div class="aname">Au Vieux Paris d'Arcole</div><div class="adesc">Fachada coberta de flores perto da Notre-Dame. Uma das fotos mais encantadoras de Paris.</div><div class="ameta"><span class="chip cost">💶 ~€14 casal</span><a class="chip map" href="https://maps.google.com/?q=Au+Vieux+Paris+d+Arcole,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🖼️ Louvre</div><div class="aname">Museu do Louvre</div><div class="adesc">OBRIGATÓRIO reservar em louvre.fr. Chegue às 9h para Mona Lisa sem multidão.</div><div class="ameta"><span class="chip cost">💶 €22/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Musee+du+Louvre,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍽️ Almoço</div><div class="aname">La Bourse et La Vie</div><div class="adesc">Bistrô com entrecôte e fritas. Alt: Le Relais de l'Entrecôte (só steak frites, sem reserva).</div><div class="ameta"><span class="chip cost">💶 €30–35 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Bourse+et+La+Vie,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏛️ Arco</div><div class="aname">Arco do Triunfo</div><div class="adesc">Vista espetacular dos Champs-Élysées do alto do terraço.</div><div class="ameta"><span class="chip cost">💶 €16/pessoa</span><span class="chip tr">🚇 Linha 1</span><a class="chip map" href="https://maps.google.com/?q=Arc+de+Triomphe,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>15h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🚶 Caminhada</div><div class="aname">Champs-Élysées → Pont Alexandre III</div><div class="adesc">A caminhada mais cinematográfica de Paris até a ponte mais ornamentada.<a class="chip map" href="https://maps.google.com/?q=Avenue+des+Champs-Elysees,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>17h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">⛪ Joia Escondida</div><div class="aname">Sainte-Chapelle + Conciergerie</div><div class="adesc">Vitrais góticos mais belos do mundo — 15 janelas narrando a Bíblia em luz colorida.</div><div class="ameta"><span class="chip cost">💶 €28 casal</span><a class="chip map" href="https://maps.google.com/?q=Sainte-Chapelle,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>19h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍽️ Jantar</div><div class="aname">Chez Denise ou Da Rosa · Saint-Germain</div><div class="adesc">De volta ao bistrô favorito ou o Da Rosa: épicerie charmosa com queijos e vinhos de qualidade.</div><div class="ameta"><span class="chip cost">💶 €35–45 casal</span><a class="chip map" href="https://maps.google.com/?q=Da+Rosa,Rue+de+Seine,Paris" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="p-d4">
+        <div class="dtitle"><h3>Versalhes + Montmartre + Marais</h3><span>16 mai · sáb</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏃 Corrida</div><div class="aname">Jardim das Tulherias</div><div class="adesc">Sábado de manhã com jogadores de pétanque e o Louvre ao fundo.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🏰 Versalhes</div><div class="aname">Palácio de Versalhes</div><div class="adesc">Galeria dos Espelhos + Jardins. Sábado: chegue às 9h antes da multidão. Reserve em chateauversailles.fr.</div><div class="ameta"><span class="chip cost">💶 €20/pessoa + jardins €9</span><span class="chip tr">🚆 RER C · 40 min</span><a class="chip map" href="https://maps.google.com/?q=Chateau+de+Versailles" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍽️ Almoço</div><div class="aname">La Petite Venise · Versalhes</div><div class="adesc">Nos jardins reais com vista do Grand Canal. Experiência única.</div><div class="ameta"><span class="chip cost">💶 €30–40 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Petite+Venise,Versailles" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>16h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">⛪ Vista</div><div class="aname">Sacré-Cœur · Montmartre</div><div class="adesc">Vista panorâmica de Paris ao pôr do sol. Absolutamente mágico.</div><div class="ameta"><span class="chip cost">💶 Grátis</span><span class="chip tr">🚇 Linha 2</span><a class="chip map" href="https://maps.google.com/?q=Sacre+Coeur,Montmartre,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>18h30</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🕌 Bairro</div><div class="aname">Le Marais · Place des Vosges</div><div class="adesc">A praça mais bela de Paris (séc. XVII), galerias e falafel lendário de As du Fallafel.</div><div class="ameta"><span class="chip tr">🚇 Linha 1</span><a class="chip map" href="https://maps.google.com/?q=Place+des+Vosges,Le+Marais,Paris" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>21h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">🍷 Despedida</div><div class="aname">Pain Vin Fromage</div><div class="adesc">Última noite em Paris com a melhor tábua de queijos e vinhos franceses.</div><div class="ameta"><span class="chip cost">💶 ~€40 casal</span><a class="chip map" href="https://maps.google.com/?q=Pain+Vin+Fromage,Paris" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="p-d5">
+        <div class="dtitle"><h3>Partida para Barcelona</h3><span>17 mai · dom</span></div>
+        <div class="act"><div class="atime"><span>04h45</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">✈️ Partida</div><div class="aname">Uber → CDG</div><div class="adesc">Agende na véspera. Último croissant da Stohrer antes de ir.</div><div class="ameta"><span class="chip cost">💶 €60–80 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot dp-c"></div></div><div class="acard"><div class="atype tp-c">✈️ Voo</div><div class="aname">Paris → Barcelona</div><div class="adesc">~1h40. Às 9h: Mediterrâneo e a última grande aventura da viagem!</div></div></div>
+      </div>
+    </div>
+    <div class="bcard"><div class="bcard-h">💶 Estimativa · Paris</div>
+      <div class="brow"><span class="blbl">Alimentação (5 dias)</span><span class="bamt bap">€500</span></div>
+      <div class="brow"><span class="blbl">Ingressos (Torre, Louvre, Versalhes…)</span><span class="bamt bap">~€280</span></div>
+      <div class="brow"><span class="blbl">Disneyland Paris</span><span class="bamt bap">~€200</span></div>
+      <div class="brow"><span class="blbl">Transporte</span><span class="bamt bap">~€100</span></div>
+      <div class="btotal"><span class="btl">Total estimado</span><span class="bta">€1.080–1.200</span></div>
+    </div>
+    <div class="tbox"><div class="tbox-h">💡 Dicas · Paris</div>
+      <div class="ti"><span class="ico">📱</span><span>Citymapper é essencial para o metrô parisiense</span></div>
+      <div class="ti"><span class="ico">🎫</span><span>Louvre: ingresso online OBRIGATÓRIO — sem ele não entra!</span></div>
+      <div class="ti"><span class="ico">🥖</span><span>Boulangerie + Monoprix = almoço por €8–12 quando economizar</span></div>
+      <div class="ti"><span class="ico">🌡️</span><span>Maio: 12–22°C · leve casaco para manhãs e noites</span></div>
+    </div>
+  </div>
+
+  <!-- IDIOMAS - PARIS (com pronúncia) -->
+  <div class="panel" id="panel-p-lan">
+    <div class="lang-panel">
+      <div class="lang-tabs">
+        <button class="ltab act-p" onclick="switchLang('p','fr')" id="lp-fr">🇫🇷 Français</button>
+        <button class="ltab" onclick="switchLang('p','en')" id="lp-en">🇬🇧 English</button>
+        <button class="ltab" onclick="switchLang('p','pt')" id="lp-pt">🇧🇷 Português</button>
+      </div>
+
+      <!-- FRANCÊS com pronúncia -->
+      <div class="lang-content active" id="lc-p-fr">
+        <div style="background:#0d0d1a;border:1px solid #1a1a35;border-radius:10px;padding:10px 13px;margin-bottom:14px;">
+          <div style="font-size:9px;color:#4a4a8a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">🔊 Como usar</div>
+          <div style="font-size:11px;color:#5a5a9a;line-height:1.5;">Toque na frase para copiar. A <span style="color:#7a90c4;font-weight:600;">pronúncia em português</span> mostra como falar o francês aproximadamente.</div>
+        </div>
+
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">☕</span><span class="cat-title">Café da Manhã & Padarias</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Un croissant et un café, s\'il vous plaît.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Un croissant et un café, s'il vous plaît.</div>
+              <div class="ph-meaning">Um croissant e um café, por favor.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Ê crua-ssã e ê ca-fê, sil vu plê</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Deux cafés au lait, s\'il vous plaît.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Deux cafés au lait, s'il vous plaît.</div>
+              <div class="ph-meaning">Dois cafés com leite, por favor.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Dö ca-fê ô lê, sil vu plê</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('C\'est délicieux!')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">C'est délicieux!</div>
+              <div class="ph-meaning">Está delicioso!</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Sê dé-li-siö!</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurantes & Bistrôs</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Une table pour deux, s\'il vous plaît.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Une table pour deux, s'il vous plaît.</div>
+              <div class="ph-meaning">Uma mesa para dois, por favor.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Ün tábl pur dö, sil vu plê</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('L\'addition, s\'il vous plaît.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">L'addition, s'il vous plaît.</div>
+              <div class="ph-meaning">A conta, por favor.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">La-di-siõ, sil vu plê</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Qu\'est-ce que vous recommandez?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Qu'est-ce que vous recommandez?</div>
+              <div class="ph-meaning">O que você recomenda?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Kés-que vu rê-co-man-dê?</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Je voudrais le menu du jour.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Je voudrais le menu du jour.</div>
+              <div class="ph-meaning">Gostaria do menu do dia.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Jö vu-drê lö mö-nü dü jur</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Avez-vous une carte en anglais?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Avez-vous une carte en anglais?</div>
+              <div class="ph-meaning">Tem cardápio em inglês?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">A-vê vu ün kart ã-an-glê?</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🚇</span><span class="cat-title">Transporte & Metrô</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Un carnet de tickets, s\'il vous plaît.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Un carnet de tickets, s'il vous plaît.</div>
+              <div class="ph-meaning">Caderneta de bilhetes (10 viagens).</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Ê car-nê dö ti-kê, sil vu plê</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Pour aller à la Tour Eiffel, s\'il vous plaît?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Pour aller à la Tour Eiffel, s'il vous plaît?</div>
+              <div class="ph-meaning">Para ir à Torre Eiffel?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Pur a-lê a la tur Ê-fél, sil vu plê?</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Est-ce que ce métro va à Châtelet?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Est-ce que ce métro va à Châtelet?</div>
+              <div class="ph-meaning">Este metrô vai a Châtelet?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">És-que sö mê-trô va a Shâ-tö-lê?</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Essenciais & Cortesia</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Bonjour! Parlez-vous anglais?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Bonjour! Parlez-vous anglais?</div>
+              <div class="ph-meaning">Bom dia! Fala inglês?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Bõ-jur! Par-lê vu-zan-glê?</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Excusez-moi, où sont les toilettes?')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Excusez-moi, où sont les toilettes?</div>
+              <div class="ph-meaning">Com licença, onde ficam os banheiros?</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Eks-kü-zê mua, u sõ lê tua-lêt?</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Merci beaucoup! Paris est magnifique.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Merci beaucoup! Paris est magnifique.</div>
+              <div class="ph-meaning">Muito obrigado! Paris é magnífica.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Mêr-si bo-ku! Pa-ri ê ma-ni-fik</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('S\'il vous plaît, appelez la police.')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">S'il vous plaît, appelez la police.</div>
+              <div class="ph-meaning">Por favor, chame a polícia.</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Sil vu plê, a-pö-lê la po-lis</span></div>
+            </div>
+            <div class="ph-row" onclick="copyPhrase('Au revoir! À bientôt!')">
+              <div class="ph-lang fl-fr"><span class="flag">🇫🇷</span> Français</div>
+              <div class="ph-phrase">Au revoir! À bientôt!</div>
+              <div class="ph-meaning">Tchau! Até logo!</div>
+              <div class="ph-pron"><span class="ph-pron-label">🔊 fala-se</span><span class="ph-pron-text">Ô rö-vuar! A biẽ-tô!</span></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /fr -->
+
+      <!-- EN Paris -->
+      <div class="lang-content" id="lc-p-en">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurants & Bistros</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('A table for two, please.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">A table for two, please.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('Do you have a menu in English?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Do you have a menu in English?</div><div class="ph-meaning">Cardápio em inglês</div></div>
+            <div class="ph-row" onclick="copyPhrase('Could we have the bill, please?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Could we have the bill, please?</div><div class="ph-meaning">Pedir a conta</div></div>
+            <div class="ph-row" onclick="copyPhrase('What do you recommend?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">What do you recommend?</div><div class="ph-meaning">Pedir recomendação</div></div>
+            <div class="ph-row" onclick="copyPhrase('This is wonderful, thank you!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">This is wonderful, thank you!</div><div class="ph-meaning">Elogiar a comida</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🚇</span><span class="cat-title">Transport & Directions</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Which line goes to the Eiffel Tower?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Which line goes to the Eiffel Tower?</div><div class="ph-meaning">Metrô para Torre Eiffel</div></div>
+            <div class="ph-row" onclick="copyPhrase('How do I get to Versailles?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">How do I get to Versailles?</div><div class="ph-meaning">Chegar a Versalhes</div></div>
+            <div class="ph-row" onclick="copyPhrase('Can you call an Uber for us, please?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Can you call an Uber for us, please?</div><div class="ph-meaning">Pedir Uber</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Essentials</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Excuse me, where is the nearest metro station?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Excuse me, where is the nearest metro station?</div><div class="ph-meaning">Estação de metrô</div></div>
+            <div class="ph-row" onclick="copyPhrase('We are from Brazil. We absolutely love Paris!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">We are from Brazil. We absolutely love Paris!</div><div class="ph-meaning">Apresentação simpática</div></div>
+            <div class="ph-row" onclick="copyPhrase('Please call the police. I\'ve been robbed.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Please call the police. I've been robbed.</div><div class="ph-meaning">Emergência (roubo)</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PT Paris -->
+      <div class="lang-content" id="lc-p-pt">
+        <div style="background:#0d1020;border:1px solid #1a2035;border-radius:10px;padding:10px 13px;margin-bottom:14px;">
+          <div style="font-size:9px;color:#3a4a7a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">💡 Dica valiosa</div>
+          <div style="font-size:11px;color:#5a6a9a;line-height:1.5;">Em Paris, sempre comece com <strong style="color:#7a90c4;">"Bonjour!"</strong> antes de qualquer pedido. Os franceses valorizam muito esse gesto de cortesia.</div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗣️</span><span class="cat-title">Frases essenciais em português</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Bonjour! Parlez-vous portugais ou anglais?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Comece com: "Bonjour!" sempre!</div><div class="ph-meaning">A palavra mágica em Paris — abre muitas portas</div></div>
+            <div class="ph-row" onclick="copyPhrase('Merci beaucoup!')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Merci → Obrigado</div><div class="ph-meaning">Pronúncia: "Mêr-si" — use sempre!</div></div>
+            <div class="ph-row" onclick="copyPhrase('S\'il vous plaît')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">S'il vous plaît → Por favor</div><div class="ph-meaning">Pronúncia: "Sil vu plê"</div></div>
+            <div class="ph-row" onclick="copyPhrase('Excusez-moi')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Excusez-moi → Com licença</div><div class="ph-meaning">Pronúncia: "Eks-kü-zê-mua"</div></div>
+            <div class="ph-row" onclick="copyPhrase('L\'addition, s\'il vous plaît.')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">L'addition → A conta</div><div class="ph-meaning">Pronúncia: "La-di-siõ" — fundamental!</div></div>
+            <div class="ph-row" onclick="copyPhrase('Où est...?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Où est...? → Onde fica...?</div><div class="ph-meaning">Pronúncia: "U ê...?" — para pedir direções</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /cv-p -->
+
+
+<!-- ╔══════════════════════════════════════╗
+     ║            BARCELONA                 ║
+     ╚══════════════════════════════════════╝ -->
+<div class="cview" id="cv-b">
+  <div class="hero hb">
+    <div class="hero-emoji">🏖️</div><div class="hero-city">Barcelona</div>
+    <div class="hero-dates">17 mai (dom) · 09h → 22 mai (sex) · 07h</div>
+    <div class="hero-tags"><span class="htag tb">⚽ Camp Nou</span><span class="htag tb">🏛️ Gaudí</span><span class="htag tb">🏖️ Praia</span><span class="htag tb">🥘 Tapas</span></div>
+    <div class="hero-budget"><span class="hbl">Orçamento alimentação / casal</span><span class="hbv vb">~€95 / dia</span></div>
+  </div>
+  <div style="padding:0 16px;"><div class="mode-tabs">
+    <button class="mtab active-b" id="mb-rot" onclick="switchMode('b','rot')">📅 Roteiro</button>
+    <button class="mtab" id="mb-lan" onclick="switchMode('b','lan')">💬 Idiomas</button>
+  </div></div>
+
+  <div class="panel active" id="panel-b-rot">
+    <div class="day-sel" id="ds-b"></div>
+    <div class="timeline" id="tl-b">
+      <div class="day-c" id="b-d0">
+        <div class="dtitle"><h3>Chegada + Boqueria + Barceloneta</h3><span>17 mai · dom</span></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">✈️ Chegada</div><div class="aname">Aeroporto → Plaça Catalunya · Aerobús</div><div class="adesc">Aerobús direto. Conveniente e confiável.</div><div class="ameta"><span class="chip cost">💶 €12,40/pessoa</span><span class="chip tr">🚌 ~35 min</span><a class="chip map" href="https://maps.google.com/?q=Aeropuerto+El+Prat,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>10h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏨 Check-in</div><div class="aname">Carrer de la Canuda, 13</div><div class="adesc">3 min de Plaça Catalunya. Deixe as malas e siga para o domingo especial.<a class="chip map" href="https://maps.google.com/?q=Carrer+de+la+Canuda+13,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>10h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">☕ Café da manhã</div><div class="aname">Bar do Gòtic · Café local</div><div class="adesc">Café com leite, croissant de mantequilla e zumo de naranja. Domingo de manhã catalão.</div><div class="ameta"><span class="chip cost">💶 €10–14 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>11h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🛒 Mercado</div><div class="aname">La Boqueria · Mercat de Sant Josep</div><div class="adesc">Domingo é ótimo antes do grande movimento. Frutas, jamón e petiscos. Vá ao fundo do mercado — preços melhores!</div><div class="ameta"><span class="chip cost">💶 Petiscos: €15–20</span><span class="chip tip">💡 Evite as bancas da entrada</span></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏖️ Praia!</div><div class="aname">Praia da Barceloneta</div><div class="adesc">Primeiro contato com o Mediterrâneo! Mergulho e banho de sol no domingo de sol.</div><div class="ameta"><span class="chip tr">🚇 Metrô L4 · 10 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>14h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Almoço</div><div class="aname">La Mar Salada · Barceloneta</div><div class="adesc">Frutos do mar com vista do porto. Paella de marisco ou fideuà.</div><div class="ameta"><span class="chip cost">💶 €35–45 casal</span><span class="chip tip">💡 Alt econômica: chiringuito na praia ~€12</span><a class="chip map" href="https://maps.google.com/?q=La+Mar+Salada,Barceloneta,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>16h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏰 Tarde</div><div class="aname">Bairro Gótico + Las Ramblas</div><div class="adesc">Ruas medievais, Catedral e as famosas Ramblas. Cuidado com batedores!<a class="chip map" href="https://maps.google.com/?q=Barrio+Gotico,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Jantar</div><div class="aname">La Alcoba Azul</div><div class="adesc">Catalão charmoso com botifarra amb mongetes e tapas criativas.</div><div class="ameta"><span class="chip cost">💶 ~€30 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Alcoba+Azul,El+Born,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="b-d1">
+        <div class="dtitle"><h3>Batlló + Sagrada Família</h3><span>18 mai · seg</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏃 Corrida</div><div class="aname">Ramblas + Passeig de Colom</div><div class="adesc">4km pelo litoral ao amanhecer com vista do porto.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">☕ Café da manhã</div><div class="aname">Pa amb tomàquet · Forn de pa</div><div class="adesc">O café da manhã catalão: pão com tomate esfregado e azeite. Simples e delicioso.</div><div class="ameta"><span class="chip cost">💶 €10–14 casal</span><span class="chip tip">💡 Vai pedir todos os dias!</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏛️ Gaudí</div><div class="aname">Casa Batlló</div><div class="adesc">Fachada de escamas de dragão e interior orgânico. Reserve em casabatllo.es.</div><div class="ameta"><span class="chip cost">💶 ~€35/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Casa+Batllo,Passeig+de+Gracia,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>12h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Almoço</div><div class="aname">El Xampanyet · El Born</div><div class="adesc">Tasca histórica: embutidos, anchovas e o famoso cava da casa.</div><div class="ameta"><span class="chip cost">💶 ~€28 casal</span><a class="chip map" href="https://maps.google.com/?q=El+Xampanyet,El+Born,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">⛪ Sagrada Família</div><div class="aname">A Obra de Gaudí</div><div class="adesc">Interior transcendental com luz filtrada por vitrais. Reserve AGORA em sagradafamilia.org!</div><div class="ameta"><span class="chip cost">💶 ~€30/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Sagrada+Familia,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Jantar</div><div class="aname">Quimet i Quimet · Poble Sec</div><div class="adesc">Tasca de pé com montaditos e conservas gourmet. Chegue às 20h!</div><div class="ameta"><span class="chip cost">💶 ~€35 casal</span><a class="chip map" href="https://maps.google.com/?q=Quimet+i+Quimet,Poble+Sec,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="b-d2">
+        <div class="dtitle"><h3>Camp Nou + Praia</h3><span>19 mai · ter</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏃 Corrida</div><div class="aname">Praia Barceloneta</div><div class="adesc">5km na areia ao amanhecer com o Mediterrâneo ao lado.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>08h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">☕ Café</div><div class="aname">Café no Passeig Marítim</div><div class="adesc">Café da manhã com vista para o mar após a corrida.</div><div class="ameta"><span class="chip cost">💶 €10–14 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>10h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">⚽ Camp Nou</div><div class="aname">Museu + Tour</div><div class="adesc">O maior estádio da Europa. Reserve em fcbarcelona.com.</div><div class="ameta"><span class="chip cost">💶 ~€34/pessoa</span><span class="chip tr">🚇 L3/L5</span></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Almoço</div><div class="aname">Can Margarit · Poble Sec</div><div class="adesc">Arròs negre (arroz negro com lula) — a especialidade catalã do mar.</div><div class="ameta"><span class="chip cost">💶 ~€30 casal</span><a class="chip map" href="https://maps.google.com/?q=Can+Margarit,Poble+Sec,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>15h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏖️ Tarde</div><div class="aname">Praia + Porto Olímpico</div><div class="adesc">Tarde de lazer no Mediterrâneo — mergulho e drinks na praia.<a class="chip map" href="https://maps.google.com/?q=Port+Olympic,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Jantar</div><div class="aname">La Paradeta · El Born</div><div class="adesc">Escolha o marisco fresco na bancada — eles preparam na hora.</div><div class="ameta"><span class="chip cost">💶 ~€30 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Paradeta,El+Born,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="b-d3">
+        <div class="dtitle"><h3>Park Güell + Gràcia</h3><span>20 mai · qua</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏃 Corrida</div><div class="aname">Plaça Catalunya → Gràcia</div><div class="adesc">4km pelo Eixample até o bairro boêmio de Gràcia.</div><div class="ameta"><span class="chip cost">💶 Grátis</span></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🌿 Park Güell</div><div class="aname">Mosaicos de Gaudí</div><div class="adesc">Salamandra icônica e vista panorâmica do mar. Reserve em parkguell.barcelona.</div><div class="ameta"><span class="chip cost">💶 €10/pessoa</span></div></div></div>
+        <div class="act"><div class="atime"><span>12h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Almoço</div><div class="aname">Bar Canigó · Gràcia</div><div class="adesc">Tapas de alcachofra e vermute. Autenticidade total longe do turismo.</div><div class="ameta"><span class="chip cost">💶 ~€25 casal</span><a class="chip map" href="https://maps.google.com/?q=Bar+Canigo,Gracia,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>14h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">☀️ Gràcia</div><div class="aname">Plaça del Sol + Compras</div><div class="adesc">Bairro boêmio com lojas independentes e praças animadas.<a class="chip map" href="https://maps.google.com/?q=Placa+del+Sol,Gracia,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>21h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Jantar</div><div class="aname">La Paradeta Gràcia</div><div class="adesc">Suquet de peixe e amêijoas — culinária do mar catalão.</div><div class="ameta"><span class="chip cost">💶 ~€35 casal</span><a class="chip map" href="https://maps.google.com/?q=La+Paradeta,Gracia,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="b-d4">
+        <div class="dtitle"><h3>Montjuïc + Fontes Mágicas</h3><span>21 mai · qui</span></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏃 Corrida</div><div class="aname">Trilhas de Montjuïc</div><div class="adesc">4km com vista do porto e do Mediterrâneo.</div><div class="ameta"><span class="chip cost">💶 Grátis</span><a class="chip map" href="https://maps.google.com/?q=Montjuic,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>09h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🏰 Montjuïc</div><div class="aname">Funicular + Castelo + Teleférico</div><div class="adesc">Vista 360° de toda Barcelona e do porto.</div><div class="ameta"><span class="chip cost">💶 ~€30/pessoa</span><a class="chip map" href="https://maps.google.com/?q=Castello+de+Montjuic,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Almoço</div><div class="aname">Tickets · Poble Sec</div><div class="adesc">Tapas do chef Albert Adrià. Reserve meses antes em ticketsbar.es.</div><div class="ameta"><span class="chip cost">💶 ~€35 casal</span><a class="chip map" href="https://maps.google.com/?q=Tickets+Bar,Poble+Sec,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>17h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🌅 Pôr do Sol</div><div class="aname">Mirante do Migdia</div><div class="adesc">Segredo dos barceloneses: pôr do sol sobre o Mediterrâneo. Completamente gratuito.</div><div class="ameta"><span class="chip cost">💶 Grátis</span><span class="chip tip">💡 Um dos pôr do sol mais belos da Europa</span></div></div></div>
+        <div class="act"><div class="atime"><span>19h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">🍽️ Jantar</div><div class="aname">El Quim de la Boqueria</div><div class="adesc">Ovos com foie e crema catalana antes das Fontes.</div><div class="ameta"><span class="chip cost">💶 ~€30 casal</span><a class="chip map" href="https://maps.google.com/?q=El+Quim+de+la+Boqueria,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>21h30</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">⛲ Espetáculo</div><div class="aname">Fontes Mágicas de Montjuïc</div><div class="adesc">Show gratuito de luz, água e música. Chegue 30 min antes para boa posição!</div><div class="ameta"><span class="chip cost">💶 Grátis</span><a class="chip map" href="https://maps.google.com/?q=Font+Magica+de+Montjuic,Barcelona" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="b-d5">
+        <div class="dtitle"><h3>Partida para Lisboa II</h3><span>22 mai · sex</span></div>
+        <div class="act"><div class="atime"><span>04h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">☕ Café + ✈️ Partida</div><div class="aname">Café rápido → Aerobús → El Prat</div><div class="adesc">Malas prontas da véspera. Aerobús da Plaça Catalunya.</div><div class="ameta"><span class="chip cost">💶 €12,40/pessoa</span><span class="chip tr">🚌 ~35 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>07h00</span></div><div class="adot"><div class="dot db-c"></div></div><div class="acard"><div class="atype tb-c">✈️ Voo</div><div class="aname">Barcelona → Lisboa</div><div class="adesc">~2h de voo. O encerramento especial da viagem começa!</div></div></div>
+      </div>
+    </div>
+    <div class="bcard"><div class="bcard-h">💶 Estimativa · Barcelona</div>
+      <div class="brow"><span class="blbl">Alimentação (5 dias)</span><span class="bamt bab">€475</span></div>
+      <div class="brow"><span class="blbl">Gaudí (Batlló + Sagrada + Güell)</span><span class="bamt bab">~€170</span></div>
+      <div class="brow"><span class="blbl">Camp Nou + Montjuïc</span><span class="bamt bab">~€100</span></div>
+      <div class="btotal"><span class="btl">Total estimado</span><span class="bta">€805–900</span></div>
+    </div>
+    <div class="tbox"><div class="tbox-h">💡 Dicas · Barcelona</div>
+      <div class="ti"><span class="ico">🎫</span><span>T-Casual metrô (10 viagens €12,15) — essencial</span></div>
+      <div class="ti"><span class="ico">⛪</span><span>Sagrada Família e Batlló: reserve com meses de antecedência!</span></div>
+      <div class="ti"><span class="ico">🌡️</span><span>Maio: 18–26°C — clima perfeito para praia e passeios</span></div>
+    </div>
+  </div>
+
+  <!-- IDIOMAS - BARCELONA -->
+  <div class="panel" id="panel-b-lan">
+    <div class="lang-panel">
+      <div class="lang-tabs">
+        <button class="ltab act-b" onclick="switchLang('b','es')" id="lb-es">🇪🇸 Español</button>
+        <button class="ltab" onclick="switchLang('b','ca')" id="lb-ca">🇨🇦 Català</button>
+        <button class="ltab" onclick="switchLang('b','en')" id="lb-en">🇬🇧 English</button>
+        <button class="ltab" onclick="switchLang('b','pt')" id="lb-pt">🇧🇷 Português</button>
+      </div>
+
+      <!-- ES Barcelona -->
+      <div class="lang-content active" id="lc-b-es">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Tapas, Mercats & Restaurants</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Una mesa para dos, por favor.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">Una mesa para dos, por favor.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('La cuenta, por favor.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">La cuenta, por favor.</div><div class="ph-meaning">Pedir a conta</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Cuál es la especialidad de la casa?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Cuál es la especialidad de la casa?</div><div class="ph-meaning">Especialidade da casa</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Tiene paella para dos personas?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Tiene paella para dos personas?</div><div class="ph-meaning">Pedir paella</div></div>
+            <div class="ph-row" onclick="copyPhrase('¡Está riquísimo! Muchas gracias.')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¡Está riquísimo! Muchas gracias.</div><div class="ph-meaning">Elogiar a comida</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">⚽</span><span class="cat-title">Futebol & Gaudí</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('¿A qué hora abre el Camp Nou?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿A qué hora abre el Camp Nou?</div><div class="ph-meaning">Horário de abertura</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Dónde está la Sagrada Família?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Dónde está la Sagrada Família?</div><div class="ph-meaning">Localizar Sagrada Família</div></div>
+            <div class="ph-row" onclick="copyPhrase('¡Visca el Barça! ¡Visca Catalunya!')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¡Visca el Barça!</div><div class="ph-meaning">Grito da torcida do Barça (em catalão)</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🏖️</span><span class="cat-title">Praia & Transporte</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('¿Cómo llego a la playa de la Barceloneta?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Cómo llego a la Barceloneta?</div><div class="ph-meaning">Chegar à praia</div></div>
+            <div class="ph-row" onclick="copyPhrase('¿Dónde puedo alquilar una silla de playa?')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">¿Dónde alquilo una silla de playa?</div><div class="ph-meaning">Alugar cadeira na praia</div></div>
+            <div class="ph-row" onclick="copyPhrase('Somos de Brasil. ¡Barcelona es preciosa!')"><div class="ph-lang fl-es"><span class="flag">🇪🇸</span> Español</div><div class="ph-phrase">Somos de Brasil. ¡Barcelona es preciosa!</div><div class="ph-meaning">Apresentação calorosa</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATALÀ Barcelona -->
+      <div class="lang-content" id="lc-b-ca">
+        <div style="background:#1a1400;border:1px solid #332800;border-radius:10px;padding:10px 13px;margin-bottom:14px;">
+          <div style="font-size:9px;color:#7a6000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">💛 Por que aprender catalão?</div>
+          <div style="font-size:11px;color:#a08040;line-height:1.5;">Catalans adoram quando turistas fazem esforço para falar catalão. Mesmo uma palavra abre sorrisos e gera simpatia imediata!</div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗣️</span><span class="cat-title">Frases que conquistam corações catalães</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Bon dia!')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Bon dia!</div><div class="ph-meaning">Bom dia! — pronuncia-se "Bõn dí-a"</div></div>
+            <div class="ph-row" onclick="copyPhrase('Moltes gràcies!')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Moltes gràcies!</div><div class="ph-meaning">Muito obrigado! — "Mól-tes grá-si-es"</div></div>
+            <div class="ph-row" onclick="copyPhrase('Per favor.')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Per favor.</div><div class="ph-meaning">Por favor — igual ao castelhano!</div></div>
+            <div class="ph-row" onclick="copyPhrase('Parla anglès o castellà?')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Parla anglès o castellà?</div><div class="ph-meaning">Fala inglês ou espanhol?</div></div>
+            <div class="ph-row" onclick="copyPhrase('On és la Sagrada Família?')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">On és la Sagrada Família?</div><div class="ph-meaning">Onde é a Sagrada Família?</div></div>
+            <div class="ph-row" onclick="copyPhrase('Barcelona és meravellosa!')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Barcelona és meravellosa!</div><div class="ph-meaning">Barcelona é maravilhosa! — vai ganhar sorrisos</div></div>
+            <div class="ph-row" onclick="copyPhrase('Adéu! Fins aviat!')"><div class="ph-lang fl-ca"><span class="flag">🏴</span> Català</div><div class="ph-phrase">Adéu! Fins aviat!</div><div class="ph-meaning">Tchau! Até logo! — "A-dèu! Fins a-viat!"</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EN Barcelona -->
+      <div class="lang-content" id="lc-b-en">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🍽️</span><span class="cat-title">Restaurants & Markets</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('A table for two, please.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">A table for two, please.</div><div class="ph-meaning">Solicitar mesa</div></div>
+            <div class="ph-row" onclick="copyPhrase('What is the fresh catch of the day?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">What is the fresh catch of the day?</div><div class="ph-meaning">Peixe do dia</div></div>
+            <div class="ph-row" onclick="copyPhrase('Could we have the paella for two?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Could we have the paella for two?</div><div class="ph-meaning">Pedir paella</div></div>
+            <div class="ph-row" onclick="copyPhrase('The bill, please. This was fantastic!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">The bill, please. This was fantastic!</div><div class="ph-meaning">Conta com elogio</div></div>
+          </div>
+        </div>
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">🗺️</span><span class="cat-title">Getting Around</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('How do I get to Camp Nou?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">How do I get to Camp Nou?</div><div class="ph-meaning">Chegar ao Camp Nou</div></div>
+            <div class="ph-row" onclick="copyPhrase('Which bus goes to Park Güell?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Which bus goes to Park Güell?</div><div class="ph-meaning">Ônibus para Park Güell</div></div>
+            <div class="ph-row" onclick="copyPhrase('We\'re from Brazil and we love Barcelona!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">We're from Brazil and we love Barcelona!</div><div class="ph-meaning">Apresentação calorosa</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PT Barcelona -->
+      <div class="lang-content" id="lc-b-pt">
+        <div class="lang-cat"><div class="cat-hdr"><span class="cat-icon">💡</span><span class="cat-title">Português funciona bem em Barcelona</span></div>
+          <div class="ph-card">
+            <div class="ph-row" onclick="copyPhrase('Paella para dois, por favor.')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Paella para dois → entendem!</div><div class="ph-meaning">Português e espanhol se comunicam bem</div></div>
+            <div class="ph-row" onclick="copyPhrase('Quanto custa?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Quanto custa? ↔ ¿Cuánto cuesta?</div><div class="ph-meaning">Quase idêntico — entendem facilmente</div></div>
+            <div class="ph-row" onclick="copyPhrase('Onde fica o metrô?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Onde fica... ↔ ¿Dónde está...?</div><div class="ph-meaning">Muito parecido — funciona bem</div></div>
+            <div class="ph-row" onclick="copyPhrase('Sou do Brasil. Pode falar devagar?')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Sou do Brasil. Pode falar devagar?</div><div class="ph-meaning">Pedir que falem mais devagar</div></div>
+            <div class="ph-row" onclick="copyPhrase('Obrigado, Barcelona é incrível!')"><div class="ph-lang fl-pt"><span class="flag">🇧🇷</span> Português</div><div class="ph-phrase">Obrigado! Barcelona é incrível!</div><div class="ph-meaning">Despedida — vão entender e sorrir!</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /cv-b -->
+
+
+<!-- ╔══════════════════════════════════════╗
+     ║             LISBOA II                ║
+     ╚══════════════════════════════════════╝ -->
+<div class="cview" id="cv-l2">
+  <div class="hero hl">
+    <div class="hero-emoji">🇵🇹✨</div><div class="hero-city">Lisboa II</div>
+    <div class="hero-dates">22 mai (sex) · 09h → 23 mai (sáb) · voo</div>
+    <div class="hero-tags"><span class="htag tl">🍷 Despedida</span><span class="htag tl">🛍️ Souvenirs</span><span class="htag tl">💛 Memórias</span></div>
+    <div class="hero-budget"><span class="hbl">Orçamento alimentação</span><span class="hbv vl">~€80–100 casal</span></div>
+  </div>
+  <div style="padding:0 16px;"><div class="mode-tabs">
+    <button class="mtab active-l" id="ml2-rot" onclick="switchMode('l2','rot')">📅 Roteiro</button>
+    <button class="mtab" id="ml2-lan" onclick="switchMode('l2','lan')">💬 Idiomas</button>
+  </div></div>
+
+  <div class="panel active" id="panel-l2-rot">
+    <div class="day-sel" id="ds-l2"></div>
+    <div class="timeline" id="tl-l2">
+      <div class="day-c" id="l2-d0">
+        <div class="dtitle"><h3>Encerramento em Lisboa</h3><span>22 mai · sex</span></div>
+        <div class="act"><div class="atime"><span>09h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">✈️ Chegada</div><div class="aname">Aeroporto → Hotel · Bolt</div><div class="adesc">Retorno a Lisboa para um encerramento especial.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>10h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">☕ Último pastel</div><div class="aname">Manteigaria ou Pastéis de Belém</div><div class="adesc">O último pastel de nata fresquinho em Portugal — um ritual que merece calma.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🛍️ Souvenirs</div><div class="aname">Av. da Liberdade + Chiado</div><div class="adesc">Conservas A Portuguesa, vinho, azeite e sabonetes de Castela — presentes perfeitos.</div><div class="ameta"><span class="chip tip">💡 Comur e A Portuguesa são marcas excelentes</span></div></div></div>
+        <div class="act"><div class="atime"><span>13h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍽️ Almoço</div><div class="aname">Taberna da Rua das Flores ou Sea Me</div><div class="adesc">Feche o ciclo onde começou (Taberna) ou um último almoço de peixe português.</div><div class="ameta"><span class="chip cost">💶 €30–40 casal</span></div></div></div>
+        <div class="act"><div class="atime"><span>15h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🌅 Despedida</div><div class="aname">Miradouro de Santa Catarina</div><div class="adesc">Vista da Ponte 25 de Abril e do Tejo. Músicos locais, ginjinha e o pôr do sol sobre Lisboa.</div><div class="ameta"><span class="chip cost">💶 Grátis</span><span class="chip tip">💡 Tome uma última ginjinha aqui!</span><a class="chip map" href="https://maps.google.com/?q=Miradouro+de+Santa+Catarina,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+        <div class="act"><div class="atime"><span>20h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🍷 Jantar Final</div><div class="aname">Tasca do Chico · Bairro Alto</div><div class="adesc">Fado ao vivo + petiscos portugueses raiz. O encerramento perfeito para 18 dias inesquecíveis!</div><div class="ameta"><span class="chip cost">💶 €45–60 casal</span><span class="chip tip">💡 Rue do Diário de Notícias, 39 — reserve!</span><a class="chip map" href="https://maps.google.com/?q=Tasca+do+Chico,Bairro+Alto,Lisboa" target="_blank">📍 Maps</a></div></div></div>
+      </div>
+      <div class="day-c" id="l2-d1">
+        <div class="dtitle"><h3>Voo para o Brasil 🇧🇷</h3><span>23 mai · sáb</span></div>
+        <div class="act"><div class="atime"><span>10h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">☕ Última manhã</div><div class="aname">Café da manhã no hotel</div><div class="adesc">Café com leite e torrada portuguesa. Check-out e último olhar por Lisboa.</div></div></div>
+        <div class="act"><div class="atime"><span>11h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🚗 Aeroporto</div><div class="aname">Bolt → Aeroporto de Lisboa</div><div class="adesc">3h antes do voo para check-in, segurança e duty free com calma.</div><div class="ameta"><span class="chip cost">💶 €8–12 casal</span><span class="chip tr">🚗 ~25 min</span></div></div></div>
+        <div class="act"><div class="atime"><span>12h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">🛍️ Duty Free</div><div class="aname">Últimas compras · Aeroporto</div><div class="adesc">Vinho alentejano, chocolates, perfumes. Às vezes melhores preços do que na cidade.</div><div class="ameta"><span class="chip tip">💡 Vinho em plástico no bagageiro economiza espaço</span></div></div></div>
+        <div class="act"><div class="atime"><span>14h00</span></div><div class="adot"><div class="dot dl-c"></div></div><div class="acard"><div class="atype tl-c">✈️ Voo para o Brasil</div><div class="aname">Lisboa → Rio de Janeiro 🇧🇷</div><div class="adesc">Fim da aventura europeia. 18 dias, 4 países, memórias inesquecíveis. Até a próxima, Europa! 🥂</div></div></div>
+      </div>
+    </div>
+    <div class="bcard"><div class="bcard-h">💶 Resumo Geral da Viagem</div>
+      <div class="brow"><span class="blbl">🇵🇹 Lisboa I</span><span class="bamt bal">€340–420</span></div>
+      <div class="brow"><span class="blbl">🇪🇸 Madrid</span><span class="bamt bam">€630–830</span></div>
+      <div class="brow"><span class="blbl">🇫🇷 Paris</span><span class="bamt bap">€1.080–1.200</span></div>
+      <div class="brow"><span class="blbl">🏖️ Barcelona</span><span class="bamt bab">€805–900</span></div>
+      <div class="brow"><span class="blbl">🇵🇹 Lisboa II</span><span class="bamt bal">€150–200</span></div>
+      <div class="btotal"><span class="btl">TOTAL (excl. passagens/hotel)</span><span class="bta">€3.005–3.550</span></div>
+    </div>
+    <div class="tbox"><div class="tbox-h">🌍 Dicas para a Viagem Toda</div>
+      <div class="ti"><span class="ico">💳</span><span>Wise ou Nomad: sem IOF, câmbio real — indispensável</span></div>
+      <div class="ti"><span class="ico">📱</span><span>eSIM Airalo: chip europeu digital, 4 países num único plano</span></div>
+      <div class="ti"><span class="ico">🎫</span><span>Sagrada Família, Louvre e Torre Eiffel: reserve meses antes!</span></div>
+      <div class="ti"><span class="ico">📸</span><span>Google Lens: aponte para cardápios e traduza na hora</span></div>
+    </div>
+  </div>
+
+  <!-- Lisboa II usa mesmas frases que Lisboa I -->
+  <div class="panel" id="panel-l2-lan">
+    <div class="lang-panel">
+      <div class="lang-tabs">
+        <button class="ltab act-l" onclick="switchLang('l2','pt')" id="ll2-pt">🇵🇹 Português</button>
+        <button class="ltab" onclick="switchLang('l2','en')" id="ll2-en">🇬🇧 English</button>
+      </div>
+      <div class="lang-content active" id="lc-l2-pt">
+        <div style="background:#1a1000;border:1px solid #302000;border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--lisboa-soft);font-family:'Playfair Display',serif;font-style:italic;margin-bottom:6px;">"Obrigado por tudo, Lisboa."</div>
+          <div style="font-size:11px;color:#886030;line-height:1.5;">As frases mais importantes para o seu último dia — e as despedidas mais bonitas que pode deixar.</div>
+        </div>
+        <div class="ph-card">
+          <div class="ph-row" onclick="copyPhrase('Obrigado por tudo. Lisboa ficará para sempre no nosso coração.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Obrigado por tudo. Lisboa ficará para sempre no nosso coração.</div><div class="ph-meaning">Despedida inesquecível</div></div>
+          <div class="ph-row" onclick="copyPhrase('Foi a melhor viagem das nossas vidas.')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Foi a melhor viagem das nossas vidas.</div><div class="ph-meaning">Para dizer aos locais que ajudaram</div></div>
+          <div class="ph-row" onclick="copyPhrase('Voltaremos com certeza. Portugal é maravilhoso!')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Voltaremos com certeza. Portugal é maravilhoso!</div><div class="ph-meaning">A melhor despedida</div></div>
+          <div class="ph-row" onclick="copyPhrase('Tem alguma dica de onde comprar uma boa lembrança?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Tem alguma dica de onde comprar uma boa lembrança?</div><div class="ph-meaning">Pedir dica de souvenir</div></div>
+          <div class="ph-row" onclick="copyPhrase('Onde posso encontrar o melhor pastel de nata de Lisboa?')"><div class="ph-lang fl-pt"><span class="flag">🇵🇹</span> Português</div><div class="ph-phrase">Onde posso encontrar o melhor pastel de nata?</div><div class="ph-meaning">A pergunta que todo brasileiro faz!</div></div>
+        </div>
+      </div>
+      <div class="lang-content" id="lc-l2-en">
+        <div class="ph-card">
+          <div class="ph-row" onclick="copyPhrase('This has been the most wonderful trip of our lives.')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">This has been the most wonderful trip of our lives.</div><div class="ph-meaning">Despedida emocionante</div></div>
+          <div class="ph-row" onclick="copyPhrase('We\'ll definitely be back. Portugal is magical!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">We'll definitely be back. Portugal is magical!</div><div class="ph-meaning">Promessa de retorno</div></div>
+          <div class="ph-row" onclick="copyPhrase('Could you recommend a good souvenir shop?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Could you recommend a good souvenir shop?</div><div class="ph-meaning">Pedir dica de souvenir</div></div>
+          <div class="ph-row" onclick="copyPhrase('Where do locals go for the best pastéis de nata?')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Where do locals go for the best pastéis de nata?</div><div class="ph-meaning">Encontrar o melhor pastel</div></div>
+          <div class="ph-row" onclick="copyPhrase('Thank you so much for everything. Safe travels!')"><div class="ph-lang fl-en"><span class="flag">🇬🇧</span> English</div><div class="ph-phrase">Thank you so much for everything. Safe travels!</div><div class="ph-meaning">Despedida universal</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /cv-l2 -->
+
+<div class="bottom-safe"></div>
+</div><!-- /shell -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Frase copiada!</div>
+
+<script>
+// ── DATA ──
+const cityData = {
+  l:  { col:'l',  days:[{n:'05',l:'mai'},{n:'06',l:'mai'},{n:'07',l:'mai'},{n:'08',l:'mai'}] },
+  m:  { col:'m',  days:[{n:'08',l:'mai'},{n:'09',l:'mai'},{n:'10',l:'mai'},{n:'11',l:'mai'},{n:'12',l:'mai'}] },
+  p:  { col:'p',  days:[{n:'12',l:'mai'},{n:'13',l:'mai'},{n:'14',l:'mai'},{n:'15',l:'mai'},{n:'16',l:'mai'},{n:'17',l:'mai'}] },
+  b:  { col:'b',  days:[{n:'17',l:'mai'},{n:'18',l:'mai'},{n:'19',l:'mai'},{n:'20',l:'mai'},{n:'21',l:'mai'},{n:'22',l:'mai'}] },
+  l2: { col:'l2', days:[{n:'22',l:'mai'},{n:'23',l:'mai'}] }
+};
+let currentCity = 'l';
+let curDay = {l:0,m:0,p:0,b:0,l2:0};
+let curMode = {l:'rot',m:'rot',p:'rot',b:'rot',l2:'rot'};
+let curLang = {l:'pt',m:'es',p:'fr',b:'es',l2:'pt'};
+
+// Build day buttons
+Object.entries(cityData).forEach(([city, data]) => {
+  const container = document.getElementById('ds-' + city);
+  data.days.forEach((d, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dbtn' + (i === 0 ? ' a' + data.col : '');
+    btn.id = 'db-' + city + '-' + i;
+    btn.innerHTML = `<span class="dn">${d.n}</span><span class="dl">${d.l}</span>`;
+    btn.onclick = () => switchDay(city, i);
+    container.appendChild(btn);
+  });
+});
+
+switchCity('l');
+
+function switchCity(city) {
+  // tabs
+  document.querySelectorAll('.ctab').forEach(t => t.className = 'ctab');
+  const ct = document.getElementById('ct-' + city);
+  if (ct) ct.classList.add('a' + cityData[city].col);
+  // views
+  document.querySelectorAll('.cview').forEach(v => v.classList.remove('active'));
+  const cv = document.getElementById('cv-' + city);
+  if (cv) cv.classList.add('active');
+  currentCity = city;
+  switchDay(city, curDay[city]);
+  applyMode(city, curMode[city]);
+}
+
+function switchDay(city, idx) {
+  curDay[city] = idx;
+  const col = cityData[city].col;
+  cityData[city].days.forEach((_, i) => {
+    const b = document.getElementById('db-' + city + '-' + i);
+    if (b) b.className = 'dbtn' + (i === idx ? ' a' + col : '');
+  });
+  const tl = document.getElementById('tl-' + city);
+  if (!tl) return;
+  tl.querySelectorAll('.day-c').forEach((el, i) => el.classList.toggle('active', i === idx));
+}
+
+function switchMode(city, mode) {
+  curMode[city] = mode;
+  applyMode(city, mode);
+}
+
+function applyMode(city, mode) {
+  const col = cityData[city].col;
+  const ids = ['rot', 'lan'];
+  ids.forEach(m => {
+    const btn = document.getElementById('m' + city.replace('l2','l2') + '-' + m) ||
+                document.getElementById('m' + (city === 'l2' ? 'l2' : city) + '-' + m);
+    if (btn) btn.classList.toggle('active-' + col, m === mode);
+  });
+  // fix for l2
+  const rotBtn = document.getElementById((city === 'l2' ? 'ml2' : 'm' + city) + '-rot');
+  const lanBtn = document.getElementById((city === 'l2' ? 'ml2' : 'm' + city) + '-lan');
+  if (rotBtn) rotBtn.className = 'mtab' + (mode === 'rot' ? ' active-' + col : '');
+  if (lanBtn) lanBtn.className = 'mtab' + (mode === 'lan' ? ' active-' + col : '');
+
+  document.querySelectorAll('#cv-' + city + ' .panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-' + city + '-' + mode);
+  if (panel) panel.classList.add('active');
+}
+
+function switchLang(city, lang) {
+  curLang[city] = lang;
+  const col = cityData[city].col;
+
+  // update lang tab buttons
+  document.querySelectorAll('#panel-' + city + '-lan .ltab').forEach(b => {
+    b.className = 'ltab';
+  });
+  // find which button matches
+  const prefix = city === 'l2' ? 'll2' : 'l' + (city === 'barcelona' ? 'b' : city);
+  const cityMap = {l:'ll', m:'lm', p:'lp', b:'lb', l2:'ll2'};
+  const pref = cityMap[city];
+  const btn = document.getElementById(pref + '-' + lang);
+  if (btn) btn.classList.add('act-' + col);
+
+  document.querySelectorAll('#panel-' + city + '-lan .lang-content').forEach(c => c.classList.remove('active'));
+  const lc = document.getElementById('lc-' + city + '-' + lang);
+  if (lc) lc.classList.add('active');
+}
+
+// COPY
+function copyPhrase(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+</script>
+</body>
+</html>
